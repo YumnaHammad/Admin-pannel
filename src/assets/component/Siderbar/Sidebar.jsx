@@ -55,7 +55,7 @@ export default function Sidebar() {
           item.separator ? (
             <hr key={index} className="my-1 mx-4 border-gray-300 transition-all duration-300 ease-in-out" />
           ) : (
-            <div
+            <div 
               key={index}
               className="group relative flex items-center gap-4 px-2 text-[16px] py-[7px] mx-3 rounded-lg cursor-pointer text-gray-700 hover:bg-gray-200 transition-all duration-300 ease-in-out transform hover:scale-[1.02]"
             >
