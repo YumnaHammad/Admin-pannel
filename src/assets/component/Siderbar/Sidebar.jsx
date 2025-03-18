@@ -35,7 +35,7 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`relative h-screen transition-all duration-300 ease-in-out ${isCollapsed ? "w-20" : "w-64"}`}
+      className={`relative h-screen transition-all duration-300 ease-in-out `}
       onMouseEnter={() => setShowCollapseButton(true)}
       onMouseLeave={() => setShowCollapseButton(false)}
     >
@@ -59,14 +59,14 @@ export default function Sidebar() {
               key={index}
               className="group relative flex items-center gap-4 px-2 text-[16px] py-[7px] mx-3 rounded-lg cursor-pointer text-gray-700 hover:bg-gray-200 transition-all duration-300 ease-in-out transform hover:scale-[1.02]"
             >
-              <div className="flex-shrink-0">{item.icon}</div>
+              <div className={`flex-shrink-0 ${isCollapsed && "py-[2px]"}`}>{item.icon}</div>
 
               {/* Show label normally when expanded */}
               {!isCollapsed && <span className="text-[#56575D]">{item.label}</span>}
 
               {/* Tooltip for collapsed sidebar */}
               {isCollapsed && (
-                <span className="absolute left-16 bg-white text-black px-2 py-1 rounded-md text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                <span className="absolute left-16 bg-white text-black px-2 rounded-md text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
                   {item.label}
                 </span>
               )}
