@@ -3,8 +3,10 @@ import { ChevronDown, Settings, Bell, Megaphone, User } from "lucide-react";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showSettings, setShowSettings] = useState(false); 
 
   return (
+    <div>
     <nav className="flex items-center justify-between bg-white p-2  rounded-md border-b shadow-sm">
       {/* Left Section */}
       <div className="flex items-center space-x-2">
@@ -14,7 +16,7 @@ const Navbar = () => {
         >
           My organization - 8847SK <ChevronDown size={16} className="ml-1" />
         </button>
-        <Settings size={18} className="text-gray-500 cursor-pointer hover:text-gray-700" />
+        <Settings size={18} className="text-gray-500 cursor-pointer hover:text-gray-700"  onClick={() => setShowSettings(!showSettings)} />
       </div>
 
       
@@ -35,6 +37,14 @@ const Navbar = () => {
         <User className="w-6 h-6 text-white bg-orange-400 rounded-full p-1 cursor-pointer" />
       </div>
     </nav>
+
+     {/* Setting Page Rendered Below Navbar */}
+     {showSettings && (
+      <div className="absolute top-full left-0 w-full bg-white border-t shadow-md">
+        <Setting />
+      </div>
+    )}
+    </div>
   );
 };
 
