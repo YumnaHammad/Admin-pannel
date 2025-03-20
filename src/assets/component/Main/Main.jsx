@@ -1,10 +1,17 @@
 import React from 'react'
+import Setting from '../Setting/Setting'
+import Users from '../Setting/Users/Users'
+import Upgrade from '../Setting/Upgrade'
 
+import Info from '../Setting/Info'
 function Main() {
   return (
     <div>
       <div className=" flex items-center justify-between bg-white px-4 shadow-sm border-b my-2 rounded-md"> 
-          <h1 className="text-2xl ">Main Content Goes Here lorem100</h1>
+          {/* <Users></Users> */}
+          {/* <Upgrade></Upgrade> */}
+          <Setting></Setting>
+         {/* <Info/> */}
         </div>
     </div>
   )
