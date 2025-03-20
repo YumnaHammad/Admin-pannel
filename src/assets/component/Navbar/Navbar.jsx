@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { ChevronDown, Settings, Bell, Megaphone, User } from "lucide-react";
+import Setting from "../Setting/Setting";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false); 
 
+
   return (
-    <div>
+    <div  className="relative">
     <nav className="flex items-center justify-between bg-white p-2  rounded-md border-b shadow-sm">
       {/* Left Section */}
       <div className="flex items-center space-x-2">

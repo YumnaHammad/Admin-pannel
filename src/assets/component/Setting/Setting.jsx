@@ -12,6 +12,7 @@ import "../Setting/Setting.css";
 import { ChevronDown } from "lucide-react";
 import { PiCloudArrowUpLight } from "react-icons/pi";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
+import Upgrade from "./Upgrade";
 
 function Setting() {
   const [orgName, setOrgName] = useState("My organization - 8847SK");
@@ -20,6 +21,7 @@ function Setting() {
   const [error, setError] = useState("");
   const [countrySelected, setCountrySelected] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
+  const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
 
   const handlePhoneChange = (value, data) => {
     setPhone(value);
@@ -51,7 +53,7 @@ function Setting() {
   const [selectedTimezone, setSelectedTimezone] =
     useState("Qatar (Asia/Qatar)");
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
   const timezones = [
     "Novokuznetsk (Asia/Novokuznetsk)",
     "Novosibirsk (Asia/Novosibirsk)",
@@ -71,7 +73,7 @@ function Setting() {
 
   return (
     <div className="flex gap-6 setting-menu w-full">
-      <aside className="w-1/4 border-r pr-1 pt-5 ">
+      <aside className="w-2/4 border-r pr-1 pt-5 pl-2 ">
         <div className="uppercase text-gray-600 text-sm mb-5 ml-5">
           Organization Settings
         </div>
@@ -94,7 +96,7 @@ function Setting() {
               <PiCreditCard className="mr-3" />
               Billing
             </div>
-            <span className="text-xs bg-gray-300 px-2 py-1 rounded-2xl mr-5 text-gray-600">
+            <span className="text-xs bg-[#EBEBEC] px-4 font-semibold py-1 rounded-2xl mr-5 text-gray-600">
               FREE
             </span>
           </li>
@@ -249,10 +251,11 @@ function Setting() {
                     className="text-[#167655] font-normal"
                   />
                 </div>
-                <p className="text-black font-normal mt-2 text-base">
+                <p className="text-black font-normal mt-2 text-base" >
                   Upgrade to upload organization logo
                 </p>
-                <button className="mt-4 relative overflow-hidden text-white px-8 py-2 rounded-full flex items-center text-sm font-medium transition-transform duration-200 ease-out group">
+                <button className="mt-4 relative overflow-hidden text-white px-8 py-2 rounded-full flex items-center text-sm font-medium transition-transform duration-200 ease-out group"onClick={() => setIsUpgradeOpen(true)}
+                >
                   <span className="absolute inset-0 bg-gradient-to-r from-[#d3435c] to-[#f3b12f] transition-all duration-500 ease-in-out group-hover:from-[#f3b12f] group-hover:to-[#d3435c]"></span>
                   <span className="relative flex items-center">
                     <HiOutlineRocketLaunch
@@ -271,6 +274,7 @@ function Setting() {
           </div>
         </div>
         </div>
+        {isUpgradeOpen && <Upgrade onClose={() => setIsUpgradeOpen(false)} />}
       </main>
     </div>
   );
