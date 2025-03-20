@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
     ::selection {
       @apply bg-[#33BA8B] text-white;
