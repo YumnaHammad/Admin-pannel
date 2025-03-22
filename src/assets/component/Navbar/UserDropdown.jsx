@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { BsGear } from "react-icons/bs";
-import { MdOutlineWbSunny, MdOutlineDarkMode } from "react-icons/md";
 import { User } from "lucide-react";
 import { VscSignOut } from "react-icons/vsc";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import DeveloperModeToggle from "./DeveloperModeToggle";
 import { useDeveloperMode } from "../Siderbar/useDeveloperMode";
+import ThemeToggle from "./ThemeToggle";
 
 const countries = [
   { name: "USA", flag: "https://flagcdn.com/w40/us.png" },
@@ -19,7 +19,6 @@ const countries = [
 const UserDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLocale, setSelectedLocale] = useState("USA");
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const { developerMode, setDeveloperMode } = useDeveloperMode();
   const closeDropdown = () => setIsOpen(false);
 
@@ -36,9 +35,9 @@ const UserDropdown = () => {
         ></div>
       )}
 
-      <div className="relative z-50">
+      <div className="relative z-50 ">
         {isOpen && (
-          <div className="fixed top-16 right-4 w-64 bg-white shadow-lg rounded-lg p-4 z-50">
+          <div className="fixed top-16 right-4 w-64 bg-white shadow-lg rounded-lg p-4 z-50 dark:bg-gray-700 text-lightText dark:text-darkText">
             <div className="flex items-center border-b pb-2 mb-2">
               <Tooltip.Provider delayDuration={0}>
                 <Tooltip.Root>
@@ -50,7 +49,7 @@ const UserDropdown = () => {
 
                   <Tooltip.Portal>
                     <Tooltip.Content
-                      className= " text-black bg-white p-2 rounded text-sm shadow-lg z-50"
+                      className=" text-black bg-white p-2 rounded text-sm shadow-lg z-50"
                       side="left"
                       sideOffset={20}
                     >
@@ -70,7 +69,7 @@ const UserDropdown = () => {
               <Tooltip.Provider delayDuration={0}>
                 <Tooltip.Root>
                   <Tooltip.Trigger asChild>
-                    <BsGear className="ml-auto text-gray-500 cursor-pointer relative z-50" />
+                    <BsGear className="ml-auto dark:text-gray-200  text-gray-600 cursor-pointer relative z-50  " />
                   </Tooltip.Trigger>
 
                   <Tooltip.Portal>
@@ -86,8 +85,6 @@ const UserDropdown = () => {
                 </Tooltip.Root>
               </Tooltip.Provider>
             </div>
-
-            {/* Locale Dropdown */}
 
             <div className="flex justify-between items-center py-2 relative">
               <Tooltip.Provider delayDuration={0}>
@@ -105,13 +102,13 @@ const UserDropdown = () => {
                       {countries.map((country) => (
                         <button
                           key={country.name}
-                          className="flex items-center px-2 py-1 hover:bg-gray-200 cursor-pointer rounded w-full text-left text-[16px]"
+                          className="flex items-center px-2 py-1 hover:bg-gray-200 cursor-pointer rounded w-full text-left text-[16px] "
                           onClick={() => setSelectedLocale(country.name)}
                         >
                           <img
                             src={country.flag}
                             alt={country.name}
-                            className="w-5 h-4 mr-3"
+                            className="w-5 h-4 mr-3 "
                           />
 
                           {country.name}
@@ -124,74 +121,52 @@ const UserDropdown = () => {
                 </Tooltip.Root>
               </Tooltip.Provider>
 
-              <span className="text-gray-700">{selectedLocale}</span>
+              <span className=" dark:text-gray-200  text-gray-600">{selectedLocale}</span>
             </div>
 
-            {/* Developer Mode Toggle (Now using context) */}
             <DeveloperModeToggle
               developerMode={developerMode}
               setDeveloperMode={setDeveloperMode}
             />
 
-            {/* <div className="flex justify-between items-center py-2">
-              <span>Billing</span>
-
-              <button className="bg-orange-500 text-white text-xs px-3 py-1 rounded-full">
-                UPGRADE
-              </button>
-            </div> */}
-                <Tooltip.Provider delayDuration={0}>
-                <Tooltip.Root>
-                  <Tooltip.Trigger asChild>
+            <Tooltip.Provider delayDuration={0}>
+              <Tooltip.Root>
+                <Tooltip.Trigger asChild>
                   <div className="flex justify-between items-center py-2">
-              <span>Billing</span>
+                    <span>Billing</span>
 
-              <button className="bg-orange-500 text-white text-xs px-3 py-1 rounded-full">
-                UPGRADE
-              </button>
-            </div> 
-                  </Tooltip.Trigger>
+                    <button className="bg-orange-500 text-white text-xs px-3 py-1 rounded-full">
+                      UPGRADE
+                    </button>
+                  </div>
+                </Tooltip.Trigger>
 
-                  <Tooltip.Portal>
-                    <Tooltip.Content
-                      className= " text-black bg-white p-2 rounded text-sm shadow-lg z-50"
-                      side="left"
-                      sideOffset={20}
-                    >
-                      Open Billing
-                      <Tooltip.Arrow className="fill-white" />
-                    </Tooltip.Content>
-                  </Tooltip.Portal>
-                </Tooltip.Root>
-              </Tooltip.Provider>
+                <Tooltip.Portal>
+                  <Tooltip.Content
+                    className=" text-black bg-white p-2 rounded text-sm shadow-lg z-50"
+                    side="left"
+                    sideOffset={20}
+                  >
+                    Open Billing
+                    <Tooltip.Arrow className="fill-white" />
+                  </Tooltip.Content>
+                </Tooltip.Portal>
+              </Tooltip.Root>
+            </Tooltip.Provider>
 
             <div className="flex justify-between items-center py-2">
               <span>Theme</span>
-
-              <div className="flex gap-2">
-                <MdOutlineWbSunny
-                  className={`cursor-pointer ${
-                    !isDarkMode ? "text-yellow-500" : "text-gray-500"
-                  }`}
-                  size={20}
-                  onClick={() => setIsDarkMode(false)}
-                />
-
-                <MdOutlineDarkMode
-                  className={`cursor-pointer ${
-                    isDarkMode ? "text-blue-500" : "text-gray-500"
-                  }`}
-                  size={20}
-                  onClick={() => setIsDarkMode(true)}
-                />
-              </div>
+              <ThemeToggle />
             </div>
 
             <div className="border-t mt-2 pt-2 flex justify-between py-2">
               <span className="cursor-pointer">Log out</span>
               <button className="flex gap-2 text-black-500 ">
-                <VscSignOut size={21} className="mt-1
-                 text-gray-500 cursor-pointer relative " />
+                <VscSignOut
+                  size={21}
+                  className="mt-1
+                  cursor-pointer relative dark:text-gray-200  text-gray-600"
+                />
               </button>
             </div>
           </div>

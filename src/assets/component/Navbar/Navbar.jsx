@@ -6,11 +6,13 @@ import * as Tooltip from "@radix-ui/react-tooltip";
 import UserDropdown from "./UserDropdown";
 import HelpDropdown from "./HelpDropdown";
 import { useDeveloperMode } from "../Siderbar/useDeveloperMode";
+import Setting from "../Setting/Setting";
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { developerMode } = useDeveloperMode();
-
+const [isSettingOpen, setIsSettingOpen]=useState(false);
   useEffect(() => {
     if (!isOpen) return;
     const handleClickOutside = (e) => {
@@ -46,7 +48,8 @@ const Navbar = () => {
   return (
     <>
       {isOpen && <div className="fixed inset-0 bg-black bg-opacity-30 z-40"></div>}
-      <nav className="flex items-center justify-between bg-white px-2 py-[5px] rounded-md border-b shadow-sm relative z-50">
+      <nav className="flex items-center justify-between bg-white px-2 py-[5px] rounded-md light:border-b shadow-sm relative z-50  dark:bg-gray-600 text-lightText dark:text-darkText">
+        
         <div className="relative flex items-center">
           <div className="relative">
             <button
@@ -86,10 +89,12 @@ const Navbar = () => {
                   <button className="py-1 px-2 hover:bg-gray-100 ">
                     <Settings
                       size={20}
+                      onClick={(e)=>{e.stopPropagation();setIsSettingOpen(true);}}
                       className="text-[#5A9E87] cursor-pointer hover:text-green-700"
                     />
                   </button>
                 </div>
+                {isSettingOpen && <Setting onClose={()=>setIsSettingOpen(false)}></Setting>}
                 <hr className="border-gray-300 my-3" />
                 <h3 className="font-semibold text-gray-900">
                   Organizations is a PRO feature
@@ -109,7 +114,9 @@ const Navbar = () => {
 
             <TooltipWrapper content="Organization Settings">
             <button className="p-1 hover:bg-gray-100 rounded-full">
-              <Settings size={20} className="text-[#5A9E87] cursor-pointer hover:text-green-700" />
+            <Link className="dropdown-item" to="/setting"> 
+            <Settings size={20} className="text-[#72c9ac] cursor-pointer hover:text-green-700" /></Link>
+             
             </button>
           </TooltipWrapper>
         </div>
@@ -127,7 +134,7 @@ const Navbar = () => {
               </div>
             }
           >
-            <div className="relative flex items-center bg-[#EBF5E3] text-gray-700 px-2 py-[6px] mx-2 rounded-md text-sm cursor-pointer">
+            <div className="relative flex items-center bg-[#EBF5E3] text-gray-700 px-2 py-[6px] mx-2 rounded-md text-sm cursor-pointer  dark:bg-gray-500 text-lightText dark:text-darkText">
               Messages used: <span className="font-semibold mx-1">0 of 30k</span>
               <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden ml-2">
                 <div className="w-0 h-full bg-green-500"></div>

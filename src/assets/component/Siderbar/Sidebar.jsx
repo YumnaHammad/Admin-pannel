@@ -37,6 +37,7 @@ export default function Sidebar() {
   ].filter(Boolean);
 
   return (
+    <div classname="relative h-screen transition-all duration-300 ease-in-out bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
     <div
       className={`relative h-screen transition-all duration-300 ease-in-out `}
       onMouseEnter={() => setShowCollapseButton(true)}
@@ -76,6 +77,7 @@ export default function Sidebar() {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }

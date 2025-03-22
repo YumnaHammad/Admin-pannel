@@ -7,3 +7,17 @@
       @apply bg-[#33BA8B] text-white;
     }
   }
+  button {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .dark button:hover {
+    background-color: #3C3C3C;
+  }
+  .dark1 button:hover {
+    background-color: #747474;
+  }
+  
+  
+  
+  
