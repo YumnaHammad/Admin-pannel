@@ -12,7 +12,10 @@ const Upgrade = ({ onClose }) => {
   const toggleBilling = () => setIsYearly(!isYearly);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
- 
+  const [isSettingOpen, setSettingOpen] = useState(false);
+
+
+
 const appData = [
     { id : 1, 
       content2: <><h2 className="text-sm font-medium">Blynk.App for iOS and Android</h2><p className="text-sm text-black font-normal">Build UI, connect devices, and remotely monitor them. No-code.</p></>, 
@@ -218,7 +221,7 @@ useEffect(() => {
   return (
     <>
     {isOpen && (
-         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100]">
          <button
             onClick={onClose}
        className="absolute top-4 right-12 bg-[#E4F5EE] hover:text-black text-green-700 rounded-lg p-2 z-20"

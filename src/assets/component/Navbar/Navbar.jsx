@@ -1,47 +1,49 @@
-import { useState, useEffect } from "react";
-import { ChevronDown, Settings, Bug, Rocket } from "lucide-react";
-import { CgOrganisation } from "react-icons/cg";
-import NewsDropdown from "./NewsDropdown";
-import * as Tooltip from "@radix-ui/react-tooltip";
-import UserDropdown from "./UserDropdown";
-import HelpDropdown from "./HelpDropdown";
-import { useDeveloperMode } from "../Siderbar/useDeveloperMode";
-
+ import { useState, useEffect } from "react";
+ import { ChevronDown, Settings, Bug, Rocket } from "lucide-react";
+ import { CgOrganisation } from "react-icons/cg";
+ import NewsDropdown from "./NewsDropdown";
+ import * as Tooltip from "@radix-ui/react-tooltip";
+ import UserDropdown from "./UserDropdown";
+ import HelpDropdown from "./HelpDropdown";
+ import { useDeveloperMode } from "../Siderbar/useDeveloperMode";
+import Setting from '../Setting/Setting';
+import ErrorBoundary from '../Setting/ErrorBoundary';
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { developerMode } = useDeveloperMode();
+ const [isOpen, setIsOpen] = useState(false);
+ const { developerMode } = useDeveloperMode();
+  const [isSettingOpen, setIsSettingOpen] = useState(false); 
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleClickOutside = (e) => {
-      if (!document.getElementById("dropdown-content")?.contains(e.target) && !document.getElementById("toggle-btn")?.contains(e.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, [isOpen]);
+ useEffect(() => {
+   if (!isOpen) return;
+   const handleClickOutside = (e) => {
+     if (!document.getElementById("dropdown-content")?.contains(e.target) && !document.getElementById("toggle-btn")?.contains(e.target)) {
+       setIsOpen(false);
+     }
+   };
+   document.addEventListener("click", handleClickOutside);
+   return () => document.removeEventListener("click", handleClickOutside);
+ }, [isOpen]);
 
-  const TooltipWrapper = ({ children, content }) => (
-    <Tooltip.Provider delayDuration={200}>
-      <Tooltip.Root>
-        <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Content className="bg-white text-black px-3 py-2 rounded-sm text-[14px] shadow-lg z-50" side="bottom" align="center" sideOffset={8}>
-            {content}
-            <Tooltip.Arrow className="fill-white" />
-          </Tooltip.Content>
-        </Tooltip.Portal>
-      </Tooltip.Root>
-    </Tooltip.Provider>
-  );
+ const TooltipWrapper = ({ children, content }) => (
+   <Tooltip.Provider delayDuration={200}>
+     <Tooltip.Root>
+       <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
+       <Tooltip.Portal>
+         <Tooltip.Content className="bg-white text-black px-3 py-2 rounded-sm text-[14px] shadow-lg z-50" side="bottom" align="center" sideOffset={8}>
+           {content}
+           <Tooltip.Arrow className="fill-white" />
+         </Tooltip.Content>
+       </Tooltip.Portal>
+     </Tooltip.Root>
+   </Tooltip.Provider>
+ );
 
-  const toggleDropdown = (e) => {
-    e.stopPropagation();
-    setIsOpen((prev) => !prev);
-  };
+ const toggleDropdown = (e) => {
+   e.stopPropagation();
+   setIsOpen((prev) => !prev);
+ };
 
-  const closeDropdown = () => setIsOpen(false);
+ const closeDropdown = () => setIsOpen(false);
 
   return (
     <>
@@ -86,10 +88,16 @@ const Navbar = () => {
                   <button className="py-1 px-2 hover:bg-gray-100 ">
                     <Settings
                       size={20}
+                      onClick={() => setIsSettingOpen(!isSettingOpen)}
                       className="text-[#5A9E87] cursor-pointer hover:text-green-700"
                     />
                   </button>
                 </div>
+                {isSettingOpen && ( <div className="fixed inset-0 bg-white z-50 overflow-auto">
+    <ErrorBoundary>
+      <Setting />
+    </ErrorBoundary>
+  </div>)}
                 <hr className="border-gray-300 my-3" />
                 <h3 className="font-semibold text-gray-900">
                   Organizations is a PRO feature
@@ -109,10 +117,11 @@ const Navbar = () => {
 
             <TooltipWrapper content="Organization Settings">
             <button className="p-1 hover:bg-gray-100 rounded-full">
-              <Settings size={20} className="text-[#5A9E87] cursor-pointer hover:text-green-700" />
+              <Settings size={20} className="text-[#5A9E87] cursor-pointer hover:text-green-700"   onClick={() => setIsSettingOpen(!isSettingOpen)}/>
             </button>
           </TooltipWrapper>
         </div>
+        {/* {isSettingOpen && (<><Setting></Setting></>)} */}
         <div className="flex items-center">
     
         <TooltipWrapper 
@@ -133,7 +142,7 @@ const Navbar = () => {
                 <div className="w-0 h-full bg-green-500"></div>
               </div>
             </div>
-          </TooltipWrapper>
+          </TooltipWrapper> 
       
 
           {developerMode &&
@@ -157,9 +166,10 @@ const Navbar = () => {
             </TooltipWrapper>
           )}
 
-          <UserDropdown />
+           <UserDropdown />
         </div>
       </nav>
+      {isSettingOpen && (<><Setting></Setting></>)}
     </>
   );
 };

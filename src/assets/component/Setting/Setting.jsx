@@ -23,22 +23,24 @@ function Setting() {
   const [isChanged, setIsChanged] = useState(false);
   const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
 
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
   const handlePhoneChange = (value, data) => {
     setPhone(value);
-
-    // Detect if a country is selected
+  
     if (data?.dialCode) {
       setCountrySelected(true);
     }
-
-    // If user types anything, clear the error
-    if (value.length > data?.dialCode.length) {
+  
+    if (value.length > (data?.dialCode?.length || 0)) {
       setError("");
     }
   };
+  
 
   const validatePhone = () => {
-    // Ensure that the error appears only if a country is selected but no actual phone number is entered
     if (countrySelected && phone.length <= phone.indexOf(" ") + 1) {
       setError("Phone number is required.");
     } else {
@@ -49,7 +51,7 @@ function Setting() {
     setter(value);
     setIsChanged(true);
   };
-
+  const [activeTab, setActiveTab] = useState("General");
   const [selectedTimezone, setSelectedTimezone] =
     useState("Qatar (Asia/Qatar)");
   const [isOpen, setIsOpen] = useState(false);
@@ -72,49 +74,35 @@ function Setting() {
   };
 
   return (
-    <div className="flex gap-6 setting-menu w-full">
+    <div className="flex gap-6 setting-menu w-full bg-white">
       <aside className="w-2/4 border-r pr-1 pt-5 pl-2 ">
         <div className="uppercase text-gray-600 text-sm mb-5 ml-5">
           Organization Settings
         </div>
         <ul className="space-y-1">
-          <li className="flex bg-gray-200 py-3 rounded-md items-center pl-3 text-green-700 font-semibold">
-            {" "}
-            <CgOrganisation className="mr-3 text-green-700 " />
-            General
-          </li>
-          <li className="text-gray-600 flex hover:bg-gray-200 hover:text-black py-3 rounded-md items-center pl-3 ">
-            <UsersRound size={20} className="mr-3" />
-            Users
-          </li>
-          <li className="text-gray-600 flex hover:bg-gray-200 hover:text-black py-3 rounded-md items-center pl-3 ">
-            <LiaUserLockSolid size={20} className="mr-3" />
-            Roles and permissions
-          </li>
-          <li className="text-gray-600 flex justify-between hover:bg-gray-200 hover:text-black py-3 rounded-md items-center pl-3 ">
-            <div className="flex items-center">
-              <PiCreditCard className="mr-3" />
-              Billing
-            </div>
-            <span className="text-xs bg-[#EBEBEC] px-4 font-semibold py-1 rounded-2xl mr-5 text-gray-600">
-              FREE
-            </span>
-          </li>
-          <li className="text-gray-600 flex hover:bg-gray-200 hover:text-black py-1 rounded-md items-center pl-3 ">
-            <LiaTagSolid size={20} className="mr-3" />
-            Tags
-          </li>
-          <li className="text-gray-600 flex hover:bg-gray-200 hover:text-black py-3 rounded-md items-center pl-3 ">
-            <RiWebhookFill size={20} className="mr-3" />
-            Webhooks
-          </li>
-          <li className="text-gray-600 flex hover:bg-gray-200 hover:text-black py-3 rounded-md items-center pl-3 ">
-            <HiOutlineUser size={20} className="mr-3" />
-            User actions log
-          </li>
+        {[
+            { name: "General", icon: <CgOrganisation className="mr-3" /> },
+            { name: "Users", icon: <UsersRound size={20} className="mr-3" /> },
+            { name: "Roles and permissions", icon: <LiaUserLockSolid size={20} className="mr-3" /> },
+            { name: "Billing", icon: <PiCreditCard className="mr-3" />, extra: <span className="text-xs bg-[#EBEBEC] px-4 font-semibold py-1 rounded-2xl mr-5 text-gray-600">FREE</span> },
+            { name: "Tags", icon: <LiaTagSolid size={20} className="mr-3" /> },
+            { name: "Webhooks", icon: <RiWebhookFill size={20} className="mr-3" /> },
+            { name: "User actions log", icon: <HiOutlineUser size={20} className="mr-3" /> },
+          ].map((tab) => (
+            <li
+              key={tab.name}
+              className={`flex justify-between items-center py-3 rounded-md pl-3 cursor-pointer ${activeTab === tab.name ? "bg-gray-200 text-green-700 font-semibold" : "text-gray-600 hover:bg-gray-200 hover:text-black"}`}
+              onClick={() => handleTabClick(tab.name)}
+            >
+              <div className="flex items-center">{tab.icon} {tab.name}</div>
+              {tab.extra}
+            </li>
+          ))}
         </ul>
       </aside>
-      <main className="pr-6" >
+      <main  className="pr-6 w-full">
+ {activeTab === "General" && (
+          <div className="bg-white">
       <nav className="flex justify-between items-center content-center pt-6 pl-6 pb-1">
         <h2 className="font-bold text-2xl">General</h2>
         <div className="flex justify-center gap-4">
@@ -274,7 +262,94 @@ function Setting() {
           </div>
         </div>
         </div>
-        {isUpgradeOpen && <Upgrade onClose={() => setIsUpgradeOpen(false)} />}
+        {isUpgradeOpen && <Upgrade onClose={() => setIsUpgradeOpen(false)} />} 
+          </div>
+        )}
+        {activeTab === "Users" && (
+          <div>
+                <div className="p-6 bg-white  w-full">
+      {/* Header Section */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl  font-bold">Users</h2>
+        <button className="bg-[#24C48E] text-black px-4 py-2 rounded-md hover:bg-[#6DD8B4] font-bold text-sm">
+          + Invite a new user
+        </button>
+      </div>
+      {/* Search Box */}
+      <input
+        type="text"
+        placeholder="Search Users"
+        className="w-80 border border-gray-300 rounded-sm px-2 py-2 mb-4 text-sm font-normal"
+      />
+<div>
+    <p className='mb-3 text-base font-normal'>1 User</p>
+</div>
+      {/* User Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="bg-gray-100 border-b">
+              <th className="p-3 text-left">
+                <input type="checkbox" className="w-4 h-4" />
+              </th>
+              <th className="p-3 text-left">Name</th>
+              <th className="p-3 text-left">Role</th>
+              <th className="p-3 text-left">Location</th>
+              <th className="p-3 text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b">
+              <td className="p-3">
+                <input type="checkbox" className="w-4 h-4" />
+              </td>
+              <td className="p-3 flex items-center space-x-3">
+                <div className="w-10 h-10 flex items-center justify-center bg-green-100 text-green-700 font-bold rounded-full">
+                  HI
+                </div>
+                <span>Hi (you)</span>
+              </td>
+              <td className="p-3 text-blue-600 font-medium">Admin</td>
+              <td className="p-3 text-gray-600">No lc</td>
+              <td className="p-3">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+          </div>
+        )}
+        {activeTab === "Roles and permissions" && (
+          <div>
+            <h2 className="font-bold text-2xl pt-6 pl-6">Roles and Permissions</h2>
+            <div className="pl-6">Roles and permissions content...</div>
+          </div>
+        )}
+        {activeTab === "Billing" && (
+          <div>
+            <h2 className="font-bold text-2xl pt-6 pl-6">Billing</h2>
+            <div className="pl-6">Billing content...</div>
+          </div>
+        )}
+        {activeTab === "Tags" && (
+          <div>
+            <h2 className="font-bold text-2xl pt-6 pl-6">Tags</h2>
+            <div className="pl-6">Tag management content...</div>
+          </div>
+        )}
+        {activeTab === "Webhooks" && (
+          <div>
+            <h2 className="font-bold text-2xl pt-6 pl-6">Webhooks</h2>
+            <div className="pl-6">Webhook settings content...</div>
+          </div>
+        )}
+        {activeTab === "User actions log" && (
+          <div>
+            <h2 className="font-bold text-2xl pt-6 pl-6">User Actions Log</h2>
+            <div className="pl-6">User activity log content...</div>
+          </div>
+        )}
+
       </main>
     </div>
   );
