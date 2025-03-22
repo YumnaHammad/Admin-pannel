@@ -1,49 +1,51 @@
-import { useState, useEffect } from "react";
-import { ChevronDown, Settings, Bug, Rocket } from "lucide-react";
-import { CgOrganisation } from "react-icons/cg";
-import NewsDropdown from "./NewsDropdown";
-import * as Tooltip from "@radix-ui/react-tooltip";
-import UserDropdown from "./UserDropdown";
-import HelpDropdown from "./HelpDropdown";
-import { useDeveloperMode } from "../Siderbar/useDeveloperMode";
+ import { useState, useEffect } from "react";
+ import { ChevronDown, Settings, Bug, Rocket } from "lucide-react";
+ import { CgOrganisation } from "react-icons/cg";
+ import NewsDropdown from "./NewsDropdown";
+ import * as Tooltip from "@radix-ui/react-tooltip";
+ import UserDropdown from "./UserDropdown";
+ import HelpDropdown from "./HelpDropdown";
+ import { useDeveloperMode } from "../Siderbar/useDeveloperMode";
 import Setting from "../Setting/Setting";
 import { Link } from 'react-router-dom';
-
+import Setting from '../Setting/Setting';
+import ErrorBoundary from '../Setting/ErrorBoundary';
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { developerMode } = useDeveloperMode();
-const [isSettingOpen, setIsSettingOpen]=useState(false);
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleClickOutside = (e) => {
-      if (!document.getElementById("dropdown-content")?.contains(e.target) && !document.getElementById("toggle-btn")?.contains(e.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, [isOpen]);
+ const [isOpen, setIsOpen] = useState(false);
+ const { developerMode } = useDeveloperMode();
+const [isSettingOpen, setIsSettingOpen]=useState(false);  const [isSettingOpen, setIsSettingOpen] = useState(false); 
 
-  const TooltipWrapper = ({ children, content }) => (
-    <Tooltip.Provider delayDuration={200}>
-      <Tooltip.Root>
-        <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Content className="bg-white text-black px-3 py-2 rounded-sm text-[14px] shadow-lg z-50" side="bottom" align="center" sideOffset={8}>
-            {content}
-            <Tooltip.Arrow className="fill-white" />
-          </Tooltip.Content>
-        </Tooltip.Portal>
-      </Tooltip.Root>
-    </Tooltip.Provider>
-  );
+ useEffect(() => {
+   if (!isOpen) return;
+   const handleClickOutside = (e) => {
+     if (!document.getElementById("dropdown-content")?.contains(e.target) && !document.getElementById("toggle-btn")?.contains(e.target)) {
+       setIsOpen(false);
+     }
+   };
+   document.addEventListener("click", handleClickOutside);
+   return () => document.removeEventListener("click", handleClickOutside);
+ }, [isOpen]);
 
-  const toggleDropdown = (e) => {
-    e.stopPropagation();
-    setIsOpen((prev) => !prev);
-  };
+ const TooltipWrapper = ({ children, content }) => (
+   <Tooltip.Provider delayDuration={200}>
+     <Tooltip.Root>
+       <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
+       <Tooltip.Portal>
+         <Tooltip.Content className="bg-white text-black px-3 py-2 rounded-sm text-[14px] shadow-lg z-50" side="bottom" align="center" sideOffset={8}>
+           {content}
+           <Tooltip.Arrow className="fill-white" />
+         </Tooltip.Content>
+       </Tooltip.Portal>
+     </Tooltip.Root>
+   </Tooltip.Provider>
+ );
 
-  const closeDropdown = () => setIsOpen(false);
+ const toggleDropdown = (e) => {
+   e.stopPropagation();
+   setIsOpen((prev) => !prev);
+ };
+
+ const closeDropdown = () => setIsOpen(false);
 
   return (
     <>
@@ -120,6 +122,7 @@ const [isSettingOpen, setIsSettingOpen]=useState(false);
             </button>
           </TooltipWrapper>
         </div>
+        {/* {isSettingOpen && (<><Setting></Setting></>)} */}
         <div className="flex items-center">
     
         <TooltipWrapper 
@@ -140,7 +143,7 @@ const [isSettingOpen, setIsSettingOpen]=useState(false);
                 <div className="w-0 h-full bg-green-500"></div>
               </div>
             </div>
-          </TooltipWrapper>
+          </TooltipWrapper> 
       
 
           {developerMode &&
@@ -164,9 +167,10 @@ const [isSettingOpen, setIsSettingOpen]=useState(false);
             </TooltipWrapper>
           )}
 
-          <UserDropdown />
+           <UserDropdown />
         </div>
       </nav>
+      {isSettingOpen && (<><Setting></Setting></>)}
     </>
   );
 };
