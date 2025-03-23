@@ -8,6 +8,7 @@ import blynktour6 from "../../../img/blynktour6.png";
 
 const steps = [
   {
+    Mtitle:"Welcome",
     title: "Hi Blynker!",
     titleClass: "text-left font-bold text-[20px]",
     content:
@@ -22,6 +23,7 @@ const steps = [
       
   },
   {
+    Mtitle:"Platform",
     title: "Platform",
     contentClass:"text-left py-3 mt-3",
       titleClass2:"text-left ",
@@ -48,6 +50,7 @@ const steps = [
     content2: "enables device communication with Blynk.Cloud. Blynk.Edgent includes this library, dynamic WiFi provisioning, and OTA updates and is recommended for supported hardware at all times.",
   },
   {
+    Mtitle:"Modes",
     title: "Developer Mode and User Mode",
     contentClass:"text-left py-3 mt-3",
     
@@ -71,7 +74,7 @@ const steps = [
 
   },
   {
-    
+    Mtitle:"Devices",
     content: "Let's learn the key concepts of Blynk Platform.",
     contentClass:"text-left py-3 mb-4",
     image: blynktour4,
@@ -88,23 +91,55 @@ list:"list-disc pl-5 text-gray-700 space-y-1",
     list1:" Blynk protocol (via Blynk.Edgent or Blynk library)",
 list2:"MQTT",
 list3:"HTTP(s)",
-list4:"HTTP(s)",
-list5:"HTTP(s)",
-list6:"HTTP(s)",
+
    
    
     
   },
   {
+    Mtitle:"Template",
     title: "Device Template",
+
     content2:"Each template consists of:",
     content: "Device configurations are stored in something we call Device Template. Multiple individual devices can be created from the same template (product), making it easy to manage them all from one place.",
     image: blynktour4,
+
+    contentClass:"text-left py-3 mt-3",
+    titleClass2:"text-left ",
+    contentClass2:"text-left mt-2",
+  titleClass:"text-left font-bold text-[20px]",
+  list:"list-disc pl-5 ",
+    list1:"Datastreams - channels to transfer data from/to device",
+list2:"Mobile app UI",
+list3:"Web dashboard UI",
+list4:"Connection Lifecycle settings",
+list5:"Metadata settings",
+list6:"Events & Notifications",
+content6:"Updating a template will update all devices that were made from it.",
+contentClass6:"text-left py-3 mt-3",
+    
   },
   {
-    title: "Device Template",
-    content: "Discover powerful features.",
+    Mtitle:"Features",
+    title: "With Blynk you can:",
+    titleClass:"text-left font-bold text-[23px] ",
+    list:"list-disc pl-5 py-5 ",
+    list1:"Visualize data from your device in app or web",
+
+list2:"Control your device from app or web",
+list3:"Set up automations and notifications",
+list4:"Update device firmware Over-The-Air",
+list5:"Provision Wi-Fi credentials to devices with no code",
+list6:"Share your device with other users",
+list7:"Manage roles and permissions",
+list8:"Manage organizations",
     image: blynktour6,
+    content6:"and more...",
+    contentClass6:" py-5",
+    content7:"Now if you have your device handy, let’s start with getting it online!",
+    contentClass7:"py-5",
+
+
   },
 ];
 
@@ -115,7 +150,7 @@ export default function BlynkTour({ isOpen, onClose }) {
     if (!isOpen) return null;
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 select-text ">
-      <div className="w-[]  bg-white rounded-lg shadow-lg p-7 h-[500px] overflow-hidden flex flex-col ">
+      <div className="w-[1200px]  bg-white rounded-lg shadow-lg p-7 h-[500px] overflow-hidden flex flex-col ">
         <h2 className="text-2xl font-bold mb-6 text-left text-gray-800">
           Blynk Tour
         </h2>
@@ -126,7 +161,7 @@ export default function BlynkTour({ isOpen, onClose }) {
             <div key={index} className="relative flex items-center">
               {index > 0 && (
                 <div
-                  className={`absolute -left-[65px] w-[60px] h-[2px] mt-1 ${
+                  className={`absolute -left-[97px] w-[90px] h-[2px] mt-1 ${
                     index <= step ? "bg-green-500" : "bg-gray-300"
                   }`}
                 ></div>
@@ -143,7 +178,7 @@ export default function BlynkTour({ isOpen, onClose }) {
                 {index < step ? <CheckCircle size={18} /> : index + 1}
               </div>
               <span className="hidden sm:block ml-2 text-gray-600">
-                {steps[index].title}
+                {steps[index].Mtitle}
               </span>
             </div>
           ))}
@@ -185,16 +220,17 @@ export default function BlynkTour({ isOpen, onClose }) {
     <li>{steps[step].list1}</li>
     <li>{steps[step].list2}</li>
     <li>{steps[step].list3}</li>
+    <li>{steps[step].list4}</li>
+    <li>{steps[step].list5}</li>
+    <li>{steps[step].list6}</li>
+    <li>{steps[step].list7}</li>
+    <li>{steps[step].list8}</li>
 </ul>
-            {/* <p className={`  ${steps[step].contentClass3}`}>
-              {steps[step].content3}
-            </p>
-            <p className={` ${steps[step].contentClass4}`}>
-              {steps[step].content4}
-            </p>
-            <p className={`  ${steps[step].contentClass5}`}>
-              {steps[step].content5}
-            </p> */}
+<p className={` ${steps[step].contentClass6}`}> {steps[step].content6}
+</p>
+<p className={` ${steps[step].contentClass7}`}> {steps[step].content7}
+</p>
+         
           </div>
           <img
             src={steps[step].image}
@@ -277,7 +313,7 @@ export default function BlynkTour({ isOpen, onClose }) {
       {/* Modal (Final Message) */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 max-w-lg">
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm">
             <h2 className="text-xl font-semibold">What’s next?</h2>
             <div className="mt-4 p-4 bg-blue-100 rounded-md">
               <h3 className="font-semibold">🚀 Explore Blueprints</h3>

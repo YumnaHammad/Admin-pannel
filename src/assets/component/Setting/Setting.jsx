@@ -74,7 +74,7 @@ function Setting() {
   };
 
   return (
-    <div className="flex gap-6 setting-menu w-full bg-white">
+    <div className="flex gap-6 setting-menu w-full bg-white ">
       <aside className="w-2/4 border-r pr-1 pt-5 pl-2 ">
         <div className="uppercase text-gray-600 text-sm mb-5 ml-5">
           Organization Settings

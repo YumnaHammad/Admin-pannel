@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState , useeffect } from "react";
 import { LifeBuoy, Compass, Rocket, BookOpen, Users, Globe, MessageCircle } from "lucide-react";
 import BlynkStepForm from "./Help/BlynkStepForm"; // Importing the modal component
+import { HiOutlineRocketLaunch } from "react-icons/hi2";
+import Upgrade from "../Setting/Upgrade";
 
 const HelpDropdown = () => {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isTourOpen, setIsTourOpen] = useState(false);
+  const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
 
   // Function to close the dropdown
   const closeDropdown = () => setIsHelpOpen(false);
@@ -56,9 +59,18 @@ const HelpDropdown = () => {
                   />
                   {label}
                   {upgrade && (
-                    <span className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white text-xs px-2 py-1 rounded-full">
-                      Upgrade
-                    </span>
+                    
+                    <button className="mt-4 relative overflow-hidden text-white px-2 py-1 rounded-fullrounded-full flex items-center text-sm font-medium transition-transform duration-200 ease-out group"onClick={() => setIsUpgradeOpen(true)}
+                                                  >
+                                                    <span className="absolute inset-0 bg-gradient-to-r from-[#d3435c] to-[#f3b12f] transition-all duration-500 ease-in-out group-hover:from-[#f3b12f] group-hover:to-[#d3435c]"></span>
+                                                    <span className="relative flex items-center">
+                                                      <HiOutlineRocketLaunch
+                                                        size={20}
+                                                        className="font-medium mr-1"
+                                                      />
+                                                      UPGRADE To PRO
+                                                    </span>
+                                                  </button>
                   )}
                 </li>
               ))}
@@ -66,6 +78,7 @@ const HelpDropdown = () => {
           </div>
         )}
       </div>
+      {isUpgradeOpen && <Upgrade onClose={() => setIsUpgradeOpen(false)} />} 
 
       {/* Blynk Tour Form - Opens only when "Blynk Tour" is clicked */}
       <BlynkStepForm isOpen={isTourOpen} onClose={() => setIsTourOpen(false)} />
