@@ -1,3 +1,6 @@
  .form-control:hover {
     border: 1px solid #00c951 !important;
   }
+  body {
+    font-family: 'TEG', 'Ubuntu', 'Roboto', 'Helvetica Neue', sans-serif;
+}

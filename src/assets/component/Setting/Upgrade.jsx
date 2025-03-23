@@ -145,7 +145,7 @@ const UserOrganizaton = [
     content1: <><p className="text-sm text-black font-normal">Users included in plan</p></>, 
     content2: <><p>1</p></>, 
     content3: <div className="flex  items-end"><p className="font-normal text-sm ">50-500</p><IoIosInformationCircle size={17} className="text-[#167655] cursor-pointer font-normal text-sm mx-1"    onClick={() => {
-      console.log("Info icon clicked"); // Debugging log
+      console.log("Info icon clicked"); 
       setIsInfoOpen(true);
     }}/></div>},
   { id : 2, 
@@ -198,7 +198,7 @@ useEffect(() => {
      if (cardRef.current?.scrollTop > 10) {
         setShowHeading(false);
       } else {
-        setShowHeading(true); // Show when scrolling back up
+        setShowHeading(true);
       }
   };
 
@@ -240,7 +240,6 @@ useEffect(() => {
          <label className="relative inline-flex items-center cursor-pointer">
            <input type="checkbox" className="sr-only peer"    checked={isYearly}
              onChange={toggleBilling} />
-           {/* <div className="w-11 h-6 bg-[#66AA45] peer-focus:outline-none peer-focus:ring-green-500 rounded-full peer dark:bg-gray-300 peer-checked:after:translate-x-6 peer-checked:bg-[#66AA45] after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all"></div> */}
            <div className="w-8 h-4 bg-gray-300 rounded-full flex items-center px-1 transition-all duration-300 ease-in-out peer-checked:bg-[#66AA45]">
              <div className={`w-3 h-3 bg-white rounded-full shadow-md transform transition-all duration-300 ${isYearly ? "translate-x-3" : "translate-x-0"}`}></div>
            </div>
