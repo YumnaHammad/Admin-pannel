@@ -272,7 +272,7 @@ useEffect(() => {
        </nav>
 
        {/* Scrollable Content */}
-       <div className="flex-1 ">
+       <div className="flex-1 mt-[190px]">
          <div className=" max-h-[400px]">
            <table className="w-full border-collapse border border-gray-300">
              <thead>

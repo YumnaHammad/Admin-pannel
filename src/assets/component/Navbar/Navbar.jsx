@@ -45,7 +45,7 @@ const Navbar = () => {
   return (
     <>
       {isOpen && <div className="fixed inset-0 bg-black bg-opacity-30 z-40"></div>}
-      <nav className="flex items-center justify-between bg-white px-2 py-2 rounded-md shadow-sm relative z-50 mb-1">
+      <nav className="flex items-center dark:bg-gray-900 text-gray-700 dark:text-gray-300 justify-between bg-white px-2 py-2 rounded-md shadow-sm relative z-50 mb-1">
         {/* Organization Dropdown */}
         <div className="relative flex items-center">
           <button
@@ -56,9 +56,13 @@ const Navbar = () => {
             My organization - 8847SK
             <ChevronDown size={16} className={`ml-1 transition-transform ${isOpen ? "rotate-180" : ""}`} />
           </button>
-          <button className="p-1 hover:bg-gray-100 rounded-full" onClick={handleSettingsClick}>
+          <TooltipWrapper content="organization Settings">
+                  
+                  <button className="p-1 hover:bg-gray-100 rounded-full" onClick={handleSettingsClick}>
                     <Settings size={20} className="text-[#5A9E87] cursor-pointer hover:text-green-700" />
                   </button>
+                
+                </TooltipWrapper>
 
           {/* Dropdown Content */}
           {isOpen && (
@@ -73,9 +77,11 @@ const Navbar = () => {
                   </span>
                 </div>
                 <TooltipWrapper content="organization Settings">
+                  
                   <button className="p-1 hover:bg-gray-100 rounded-full" onClick={handleSettingsClick}>
                     <Settings size={20} className="text-[#5A9E87] cursor-pointer hover:text-green-700" />
                   </button>
+                
                 </TooltipWrapper>
               </div>
 
@@ -130,11 +136,17 @@ const Navbar = () => {
           {developerMode && (
             <>
               <TooltipWrapper content="Latest News">
-                <NewsDropdown />
-              </TooltipWrapper>
-              <TooltipWrapper content="Help">
-                <HelpDropdown />
-              </TooltipWrapper>
+  <div>
+    <NewsDropdown />
+  </div>
+</TooltipWrapper>
+
+<TooltipWrapper content="Help">
+  <div>
+    <HelpDropdown />
+  </div>
+</TooltipWrapper>
+
               <TooltipWrapper content="Report An Issue">
                 <button className="p-1 hover:bg-gray-100 rounded-full">
                   <Bug size={20} className="text-gray-500 cursor-pointer hover:text-gray-700 me-2" />

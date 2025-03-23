@@ -34,8 +34,8 @@ const Dashboard = () => {
               BETA
             </span>
           </h2>
-          <div className="mt-4">
-            <button className="w-full text-left px-4 py-4 bg-gray-100 rounded-md text-sm font-medium text-[#167655]">
+          <div className="mt-4 dark:bg-gray-900  dark:text-white">
+            <button className="w-full text-left px-4 py-4 bg-gray-100 rounded-md text-sm font-medium text-[#167655] dark:bg-gray-700 ">
               New Dashboard
             </button>
           </div>
@@ -63,8 +63,8 @@ const Dashboard = () => {
         </div>
 
         {/* Time Filters */}
-        <div className="flex justify-between">
-          <div className="mt-4 flex px-1 py-1 bg-gray-200 relative items-center">
+        <div className="flex justify-between ">
+          <div className="mt-4 flex px-1 py-1  relative items-center dark:bg-gray-700">
             {timeOptions.map((item, index) => (
               <button
                 key={index}
@@ -116,10 +116,10 @@ const Dashboard = () => {
           </div>
           {/* Dashboard Actions */}
           <div className=" flex gap-2">
-            <button className=" px-6 bg-gray-200 rounded-md flex items-center gap-1 py-1 text-xs font-medium">
-              <CgOrganisation className="text-[20px] text-[#56575D]" size={17}/>All organi...
+            <button className=" px-6 bg-gray-200 rounded-md flex items-center gap-1 py-[-10px] text-xs font-medium  dark:text-gray-100 dark:hover:bg-gray-700 dark:bg-gray-700 ">
+              <CgOrganisation className="text-[20px] text-[#56575D]  dark:text-gray-100" size={17}/>All organi...
             </button>
-            <button className="px-6 bg-[#b6ebd9] text-green-700 rounded-md flex items-center gap-2 font-semibold text-sm">
+            <button className="px-6 bg-[#b6ebd9] text-green-700 rounded-md flex items-center gap-2 font-semibold text-sm pt-[-100px]">
             <FaFilter /> Filter
             </button>
           </div>

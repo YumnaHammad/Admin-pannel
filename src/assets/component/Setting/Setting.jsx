@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { CgOrganisation } from "react-icons/cg";
 import { UsersRound } from "lucide-react";
 import { LiaUserLockSolid, LiaTagSolid } from "react-icons/lia";
@@ -120,7 +121,7 @@ function Setting() {
   const plans = [50, 200, 500];
   return (
     <div className="flex gap-6 setting-menu w-full bg-white ">
-      <aside className="w-2/4 border-r pr-1 pt-5 pl-2 ">
+      <aside className="w-1/4 border-r pr-1 pt-5 pl-2 ">
         <div className="uppercase text-gray-600 text-sm mb-5 ml-5">
           Organization Settings
         </div>
@@ -338,9 +339,7 @@ function Setting() {
                 </div>
               </div>
             </div>
-            {isUpgradeOpen && (
-              <Upgrade onClose={() => setIsUpgradeOpen(false)} />
-            )}
+            {isUpgradeOpen && <Upgrade onClose={() => setIsUpgradeOpen(false)} />}
           </div>
         )}
         {activeTab === "Users" && (
@@ -418,6 +417,7 @@ function Setting() {
                 </button>
               </div>
             </div>
+            {isUpgradeOpen && <Upgrade onClose={() => setIsUpgradeOpen(false)} />}
             <div className="flex gap-2 mt-4">
               <div className=" bg-white shadow-md p-4 rounded-md col-4 w-52">
                 <h2 className="font-medium text-lg">Actions</h2>
@@ -922,10 +922,11 @@ function Setting() {
                   <h2 className="mt-4 text-lg font-semibold text-left">
                     {selectedPlan} Devices and Users
                   </h2>
-                  <button className="w-full mt-4 bg-gradient-to-r from-orange-400 to-red-500 text-white py-2 rounded-lg font-semibold flex items-center justify-center">
+                  <button className="w-full mt-4 bg-gradient-to-r from-orange-400 to-red-500 text-white py-2 rounded-lg font-semibold flex items-center justify-center" onClick={() => setIsUpgradeOpen(true)}>
                     <HiOutlineRocketLaunch className="mr-3" /> Upgrade to PRO
                     Now!
                   </button>
+                  {isUpgradeOpen && <Upgrade onClose={() => setIsUpgradeOpen(false)} />}
                   <ul className="mt-4 space-y-2 text-gray-700">
                     <li
                       className="text-sm font-normal
