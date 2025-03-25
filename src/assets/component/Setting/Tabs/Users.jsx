@@ -1,12 +1,12 @@
 import React from 'react'
 
-const Users = () => {
+const Users = ({ setActiveTab })  => {
   return (
         <div className="p-6 bg-white  w-full">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl  font-bold">Users</h2>
-        <button className="bg-[#24C48E] text-black px-4 py-2 rounded-md hover:bg-[#6DD8B4] font-bold text-sm">
+        <button className="bg-[#24C48E] text-black px-4 py-2 rounded-md hover:bg-[#6DD8B4] font-bold text-sm"   onClick={() => setActiveTab("Billing")}>
           + Invite a new user
         </button>
       </div>
