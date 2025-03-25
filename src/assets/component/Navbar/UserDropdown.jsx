@@ -51,7 +51,7 @@ const UserDropdown = () => {
               <Tooltip.Provider delayDuration={0}>
                 <Tooltip.Root>
                   <Tooltip.Trigger asChild>
-                    <div className="w-10 h-10 bg-green-400 rounded-full flex items-center justify-center text-white text-lg font-bold cursor-pointer">
+                    <div className="w-10 h-10 bg-[#00667C] rounded-full flex items-center justify-center text-white text-lg font-bold cursor-pointer">
                       H
                     </div>
                   </Tooltip.Trigger>

@@ -156,7 +156,7 @@ function Setting() {
               key={tab.name}
               className={`flex justify-between items-center py-3 rounded-md pl-3 cursor-pointer dark:bg-gray-900 text-gray-700 dark:text-gray-300 ${
                 activeTab === tab.name
-                  ? "bg-gray-200 text-green-700 font-semibold"
+                  ? "bg-gray-200 text-[#00667C] font-semibold"
                   : "text-gray-600 hover:bg-gray-200 hover:text-black"
               }`}
               onClick={() => handleTabClick(tab.name)}
@@ -176,7 +176,7 @@ function Setting() {
               <h2 className="font-bold text-2xl">General</h2>
               <div className="flex justify-center gap-4">
                 <button
-                  className=" px-7 py-2 rounded text-sm/none font-bold bg-[#dbf5ec] text-[#167655] hover:bg-[#E2F7F0] hover:text-[#459177]"
+                  className=" px-7 py-2 rounded text-sm/none font-bold bg-[#dbf5ec] text-[#00667C] hover:bg-[#E2F7F0] hover:text-[#00657c75]"
                   onClick={() => {
                     setOrgName(initialState.orgName);
                     setDescription(initialState.description);
@@ -190,8 +190,8 @@ function Setting() {
                 <button
                   className={`px-7 py-2 rounded text-sm/none font-bold ${
                     isChanged
-                      ? "bg-[#24c48e] hover:bg-[#91E1C6] text-black"
-                      : "bg-[#91E1C6] text-gray-500 cursor-not-allowed"
+                      ? "bg-[#00657ccb] hover:bg-[#00657ca8] text-black "
+                      : "bg-[#91e1c6b9] text-gray-500 cursor-not-allowed"
                   }`}
                   disabled={!isChanged}
                 >
@@ -209,7 +209,7 @@ function Setting() {
                     type="text"
                     value={orgName}
                     onChange={(e) => handleChange(setOrgName, e.target.value)}
-                    className="mt-1 w-full border p-2  hover:border-green-400 focus:outline-none rounded text-gray-600 text-sm"
+                    className="mt-1 w-full border p-2  hover:border-[#00667C] focus:outline-none rounded text-gray-600 text-sm"
                   />
                   <p className="absolute text-gray-500 text-base hidden group-hover:block">
                     Use letters, digits, space or '.', '-', '"' characters
@@ -226,7 +226,7 @@ function Setting() {
                     onChange={(e) =>
                       handleChange(setDescription, e.target.value)
                     }
-                    className="mt-1 w-full border p-2 rounded hover:border-green-400 focus:outline-none  resize-none text-gray-600 h-[170px]"
+                    className="mt-1 w-full border p-2 rounded hover:border-[#00667C] focus:outline-none  resize-none text-gray-600 h-[170px]"
                   />
                   <div className="flex justify-end mt-1">
                     <span className="text-gray-400 text-sm">
@@ -311,7 +311,7 @@ function Setting() {
                       <div className="text-green-200 text-3xl">
                         <PiCloudArrowUpLight
                           size={48}
-                          className="text-[#167655] font-normal"
+                          className="text-[#00667C] font-normal"
                         />
                       </div>
                       <p className="text-black font-normal mt-2 text-base">
@@ -348,7 +348,7 @@ function Setting() {
               {/* Header Section */}
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl  font-bold">Users</h2>
-                <button className="bg-[#24C48E] text-black px-4 py-2 rounded-md hover:bg-[#6DD8B4] font-bold text-sm">
+                <button className="bg-[#00667C] text-black px-4 py-2 rounded-md hover:bg-[#6dd8b43f] font-bold text-sm">
                   + Invite a new user
                 </button>
               </div>
@@ -436,15 +436,15 @@ function Setting() {
                   </button>
                 </div>
               </div>
-              <div className="bg-[#24C48E] text-black p-4 rounded-md col-3 w-36 font-medium text-lg">
+              <div className="bg-[#00667C] text-black p-4 rounded-md col-3 w-36 font-medium text-lg">
                 Admin
                 <div className="text-sm font-normal mt-3">1 user</div>
               </div>
-              <div className="bg-[#24C48E] text-black p-4 rounded-md col-3 w-36 font-medium text-lg">
+              <div className="bg-[#00667C] text-black p-4 rounded-md col-3 w-36 font-medium text-lg">
                 Staff
                 <div className="text-sm font-normal mt-3"> 0 users</div>
               </div>
-              <div className="bg-[#24C48E] text-black p-4 rounded-md col-3 w-36 font-medium text-lg">
+              <div className="bg-[#00667C] text-black p-4 rounded-md col-3 w-36 font-medium text-lg">
                 User
                 <div className="text-sm font-normal mt-3">0 users</div>
               </div>
@@ -606,173 +606,6 @@ function Setting() {
                 </div>
               ))}
             </div>
-            {/* ;Permissions
-            <div className="mt-6 border p-4 rounded-lg">
-              <div
-                className="flex justify-between items-center cursor-pointer"
-                onClick={() => setExpanded(!expanded)}
-              >
-                <h2 className="text-lg font-semibold flex items-center">
-                  {expanded ? (
-                    <FaMinus size={16} className="mr-2" />
-                  ) : (
-                    <FaPlus size={16} className="mr-2" />
-                  )}{" "}
-                  Permissions control
-                </h2>
-              </div>
-              {expanded && (
-                <div className="mt-4">
-                  <table className="w-full border-collapse border border-gray-200">
-                    <thead></thead>
-                    <tbody>
-                      <tr className="border-t">
-                        <td className="p-2">View roles and permissions</td>
-                        <td className="p-2">
-                          <FaToggleOn
-                            checked={permissions.viewRoles}
-                            onChange={(val) =>
-                              setPermissions({ ...permissions, viewRoles: val })
-                            }
-                            className={`$ {permissions.viewRoles ? 'bg-green-500' : 'bg-gray-300'} relative inline-flex items-center h-6 rounded-full w-11`}
-                          >
-                            <span className="sr-only">Enable</span>
-                            <span
-                              className={`$ {permissions.viewRoles ? 'translate-x-6' : 'translate-x-1'} inline-block w-4 h-4 transform bg-white rounded-full`}
-                            />
-                          </FaToggleOn>
-                        </td>
-                        <td className="p-2">
-                          <FaToggleOn
-                            className="bg-gray-300 h-6 w-11 rounded-full"
-                            disabled
-                          />
-                        </td>
-                        <td className="p-2">
-                          <FaToggleOn
-                            className="bg-gray-300 h-6 w-11 rounded-full"
-                            disabled
-                          />
-                        </td>
-                      </tr>
-                      <tr className="border-t bg-gray-50">
-                        <td className="p-2">Edit roles</td>
-                        <td className="p-2">
-                          <FaToggleOn
-                            checked={permissions.editRoles}
-                            onChange={(val) =>
-                              setPermissions({ ...permissions, editRoles: val })
-                            }
-                            className={`$ {permissions.editRoles ? 'bg-green-500' : 'bg-gray-300'} relative inline-flex items-center h-6 rounded-full w-11`}
-                          >
-                            <span className="sr-only">Enable</span>
-                            <span
-                              className={`$ {permissions.editRoles ? 'translate-x-6' : 'translate-x-1'} inline-block w-4 h-4 transform bg-white rounded-full`}
-                            />
-                          </FaToggleOn>
-                        </td>
-                        <td className="p-2">
-                          <FaToggleOn
-                            className="bg-gray-300 h-6 w-11 rounded-full"
-                            disabled
-                          />
-                        </td>
-                        <td className="p-2">
-                          <FaToggleOn
-                            className="bg-gray-300 h-6 w-11 rounded-full"
-                            disabled
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div> */}
-            {/* Users   */}
-            {/* <div className="mt-6 border p-4 rounded-lg">
-              <div
-                className="flex justify-between items-center cursor-pointer"
-                onClick={() => setExpandedUsers(!expandedUsers)}
-              >
-                <h2 className="text-lg font-semibold flex items-center">
-                  {expandedUsers ? (
-                    <FaMinus size={16} className="mr-2" />
-                  ) : (
-                    <FaPlus size={16} className="mr-2" />
-                  )}{" "}
-                  Users-
-                </h2>
-              </div>
-              {expandedUsers && (
-                <div className="mt-4">
-                  <table className="w-full border-collapse border border-gray-200">
-                    <thead>
-                      <tr className="bg-gray-100">
-                        <th className="p-2 text-left">Role</th>
-                        <th className="p-2">Users</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="border-t">
-                        <td className="p-2">Admin</td>
-                        <td className="p-2">1</td>
-                      </tr>
-                      <tr className="border-t bg-gray-50">
-                        <td className="p-2">Staff</td>
-                        <td className="p-2">0</td>
-                      </tr>
-                      <tr className="border-t">
-                        <td className="p-2">User</td>
-                        <td className="p-2">0</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div> */}
-            {/* Devices */}
-            {/* <div className="mt-6 border p-4 rounded-lg">
-              <div
-                className="flex justify-between items-center cursor-pointer"
-                onClick={() => setExpandedDevices(!expandedDevices)}
-              >
-                <h2 className="text-lg font-semibold flex items-center">
-                  {expandedDevices ? (
-                    <FaMinus size={16} className="mr-2" />
-                  ) : (
-                    <FaPlus size={16} className="mr-2" />
-                  )}{" "}
-                  Devices
-                </h2>
-              </div>
-              {expandedDevices && (
-                <div className="mt-4">
-                  <table className="w-full border-collapse border border-gray-200">
-                    <thead>
-                      <tr className="bg-gray-100">
-                        <th className="p-2 text-left">Role</th>
-                        <th className="p-2">Users</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="border-t">
-                        <td className="p-2">Admin</td>
-                        <td className="p-2">1</td>
-                      </tr>
-                      <tr className="border-t bg-gray-50">
-                        <td className="p-2">Staff</td>
-                        <td className="p-2">0</td>
-                      </tr>
-                      <tr className="border-t">
-                        <td className="p-2">User</td>
-                        <td className="p-2">0</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div> */}
           </div>
         )}
         {activeTab === "Billing" && (
@@ -780,7 +613,7 @@ function Setting() {
             <h2 className="text-2xl font-bold">Current Plan</h2>
             <div className="flex justify-between">
               <div className="mt-4">
-                <h3 className="text-green-600 text-xl font-bold">Free</h3>
+                <h3 className="text-[#00667C] text-xl font-bold">Free</h3>
                 <p className="text-black">FOR EXPLORATION</p>
                 <p className="text-lg font-bold">
                   $0 <span className="text-lg">/month</span>
@@ -795,7 +628,7 @@ function Setting() {
                     <span>1 of 10</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-1.5">
-                    <div className="bg-green-500 h-1.5 rounded-full w-3"></div>
+                    <div className="bg-[#00667C]h-1.5 rounded-full w-3"></div>
                   </div>
                 </div>
                 <div className="w-24">
@@ -817,7 +650,7 @@ function Setting() {
                     <span>1 of 10</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-1.5">
-                    <div className="bg-green-500 h-1.5 rounded-full w-3"></div>
+                    <div className="bg-[#00667C] h-1.5 rounded-full w-3"></div>
                   </div>
                 </div>
                 <div className="w-24">
@@ -884,7 +717,7 @@ function Setting() {
               </div>
               <div className="flex justify-center">
                 <button
-                  className="flex items-center gap-2 px-4 bg-green-100 text-green-700 rounded-md hover:bg-green-200 transition text-sm font-semibold h-8"
+                  className="flex items-center gap-2 px-4 bg-[#00657c3d] text-[#00667C] rounded-md hover:bg-green-200 transition text-sm font-semibold h-8"
                   onClick={() => setIsUpgradeOpen(true)}
                 >
                   <FaBalanceScale className="w-5 h-5" /> Compare All Plans

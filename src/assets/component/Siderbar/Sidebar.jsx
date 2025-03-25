@@ -15,6 +15,7 @@ import { CgOrganisation } from "react-icons/cg";
 import { TbDeviceMobileMessage } from "react-icons/tb";
 import { HiOutlineWrenchScrewdriver } from "react-icons/hi2";
 import { useDeveloperMode } from "./useDeveloperMode";
+import iconn from "../../img/iconn.png"
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -58,25 +59,26 @@ export default function Sidebar() {
         onMouseEnter={() => setShowCollapseButton(true)}
         onMouseLeave={() => setShowCollapseButton(false)}
       >
-        <div className="p-4 font-semibold flex items-center gap-2 transition-all duration-300 ease-in-out dark:bg-gray-900  dark:text-white">
-          <div className="bg-[#24C48E] text-[22px] text-white w-8 h-8 flex items-center justify-center rounded-lg">B</div>
-          {!isCollapsed && <span className="text-[20px] font-bold text-[#56575D] dark:bg-gray-900  dark:text-white">Blynk.Console</span>}
+        <div className="px-4 pt-4 pb-1 font-semibold flex items-center gap-2 transition-all duration-300 ease-in-out  ">
+         
+          <div className="bg-[#00667C] text-[22px] text-white w-8 h-8 flex items-center justify-center rounded-lg">N</div>
+          {!isCollapsed && <span className="text-[20px] font-bold text-[#56575D] "><img  className=" w-[120px]" src={iconn}/></span>} 
         </div>
 
-        <nav className={`mt-2  dark:bg-gray-900  dark:text-white transition-all duration-300 ease-in-out ${showCollapseButton ? "pb-[15px] space-y-[8px]" : "pb-[20px] space-y-[11px]"}`}>        
+        <nav className={`mt-2 transition-all duration-300 ease-in-out ${showCollapseButton ? "pb-[15px] space-y-[7px]" : "pb-[20px] space-y-[11px]"}`}>        
           {menuItems.map((item, index) =>
             item.separator ? (
               <hr key={index} className="my-1 mx-4 border-gray-300" />
             ) : (
               <div 
                 key={index} 
-                className="group relative flex items-center gap-4 px-2 text-[16px] py-[7px] mx-3 rounded-lg cursor-pointer text-gray-700  hover:bg-gray-200"
+                className="group relative flex items-center gap-4 px-2 text-[16px] py-[7.5px] mx-3 rounded-lg cursor-pointer text-gray-700  hover:bg-gray-200"
                 onClick={() => handleNavigation(item.route)} // Navigate properly
               >
-                <div className={`flex-shrink-0 dark:bg-gray-900  dark:text-white ${isCollapsed && "py-[2px] dark:bg-gray-900  dark:text-white"}`}>{item.icon}</div>
-                {!isCollapsed && <span className="text-[#56575D] dark:bg-gray-900  dark:text-white">{item.label}</span>}
+                <div className={`flex-shrink-0 ${isCollapsed && "py-[2px] hover:bg-gray-200  "}`}>{item.icon}</div>
+                {!isCollapsed && <span className="text-[#56575D]  hover:dark:text-gray-900  ">{item.label}</span>}
                 {isCollapsed && (
-                  <span className="absolute left-16 bg-white text-black px-2 rounded-md text-sm opacity-0 group-hover:opacity-100 dark:bg-gray-900  dark:text-white">{item.label}</span>
+                  <span className="absolute left-16 bg-white text-black px-2 rounded-md text-sm opacity-0 group-hover:opacity-100 dark:bg-gray-900  dark:text-white hover:text-gray-900">{item.label}</span>
                 )}
               </div>
             )
@@ -84,13 +86,13 @@ export default function Sidebar() {
         </nav>
 
         {showCollapseButton && (
-          <div className="absolute bottom-4 left-0 right-0 px-4">
+          <div className="absolute bottom-4 left-0 right-0 px-4 ">
             <div 
               className="group relative flex items-center gap-4 px-2 py-2 rounded-lg cursor-pointer text-gray-700 hover:bg-gray-200 "
               onClick={() => setIsCollapsed(!isCollapsed)}
             >
               <div className="flex-shrink-0">
-                {isCollapsed ? <ArrowRightToLine className="text-[20px] text-[#56575D]" /> : <ArrowLeftToLine className="text-[20px] text-[#56575D]" />}
+                {isCollapsed ? <ArrowRightToLine className="text-[20px] text-[#56575D]" /> : <ArrowLeftToLine className="text-[20px] text-[#56575D] " />}
               </div>
               {!isCollapsed && <span className="text-[#56575D]">Collapse</span>}
               {isCollapsed && (

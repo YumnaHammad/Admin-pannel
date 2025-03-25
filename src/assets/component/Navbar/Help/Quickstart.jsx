@@ -144,7 +144,7 @@ const steps = [
   },
 ];
 
-export default function BlynkTour({ isOpen, onClose }) {
+export default function Quickstart({ isOpen, onClose }) {
   const [step, setStep] = useState(0);
   const [showModal, setShowModal] = useState(false); // State for modal visibility
 
@@ -153,7 +153,7 @@ export default function BlynkTour({ isOpen, onClose }) {
     <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 select-text ">
       <div className="w-[1200px]  bg-white rounded-lg shadow-lg p-7 h-[500px] overflow-hidden flex flex-col ">
         <h2 className="text-2xl font-bold mb-6 text-left text-gray-800">
-          Blynk Tour
+        Quick Start 
         </h2>
 
         {/* Stepper */}

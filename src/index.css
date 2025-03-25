@@ -4,7 +4,7 @@
 
 @layer base {
     ::selection {
-      @apply bg-[#33BA8B] text-white;
+      @apply bg-[#00667C] text-white;
     }
   }
   button {
@@ -12,10 +12,10 @@
   }
   
   .dark button:hover {
-    background-color: #3C3C3C;
+    background-color: #cacaca48;
   }
   .dark1 button:hover {
-    background-color: #747474;
+    background-color: #cacaca4d;
   }
   
   

@@ -4,9 +4,11 @@ import BlynkStepForm from "./Help/BlynkStepForm"; // Importing the modal compone
 import Upgrade from "../Setting/Upgrade";
 
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
+import Quickstart from "./Help/Quickstart";
 const HelpDropdown = () => {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isTourOpen, setIsTourOpen] = useState(false);
+  const [isStartOpen, setIsStartOpen] = useState(false);
   const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
 
   // Function to close the dropdown
@@ -42,7 +44,7 @@ const HelpDropdown = () => {
             <ul className="text-[15px] text-gray-700">
               {[
                 { icon: Compass, label: "Blynk Tour", action: () => { setIsTourOpen(true); closeDropdown(); } },
-                { icon: Rocket, label: "Quickstart" },
+                { icon: Rocket, label: "Quickstart", action: () => { setIsStartOpen(true); closeDropdown(); } },
                 { icon: BookOpen, label: "Documentation" },
                 { icon: Users, label: "Community" },
                 { icon: Globe, label: "Official Website" },
@@ -84,6 +86,7 @@ const HelpDropdown = () => {
 
       {/* Blynk Tour Form - Opens only when "Blynk Tour" is clicked */}
       <BlynkStepForm isOpen={isTourOpen} onClose={() => setIsTourOpen(false)} />
+        <Quickstart  isOpen={isStartOpen} onClose={() => setIsStartOpen(false)} />
       {isUpgradeOpen && <Upgrade onClose={() => setIsUpgradeOpen(false)} />} 
     </>
   );

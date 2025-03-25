@@ -30,12 +30,12 @@ const Dashboard = () => {
         <div>
           <h2 className="text-sm flex items-center gap-2 font-normal">
             DASHBOARDS{" "}
-            <span className="text-green-600 py-0.5 border border-green-600 px-3 font-medium text-xs rounded-full">
+            <span className="text-[#00667C] dark:bg-gray-900  dark:text-white py-0.5 border border-[#00667C]  dark:border-gray-100  px-3 font-medium text-xs rounded-full">
               BETA
             </span>
           </h2>
           <div className="mt-4 dark:bg-gray-900  dark:text-white">
-            <button className="w-full text-left px-4 py-4 bg-gray-100 rounded-md text-sm font-medium text-[#167655] dark:bg-gray-700 ">
+            <button className="w-full text-left px-4 py-4 bg-gray-100 rounded-md text-sm font-medium text-[#00667C]  dark:text-[#0b2d35]  dark:bg-gray-700 ">
               New Dashboard
             </button>
           </div>
@@ -57,8 +57,8 @@ const Dashboard = () => {
       <div className="flex-1 pt-6 pl-6 w-full ">
         <div className="flex justify-between items-center w-full">
           <h1 className="text-2xl font-semibold">New Dashboard</h1>
-          <button className="p-2 rounded-md hover:bg-[#E1F6EF] bg-[#b6ebd9]">
-            <PiDotsThreeOutlineDuotone className="text-[#167655]" />
+          <button className="px-2 py-[2px] rounded-md hover:bg-[#E1F6EF] text-[#00667C] dark:bg-gray-300">
+            <PiDotsThreeOutlineDuotone className="text-[#00667C]" />
           </button>
         </div>
 
@@ -116,10 +116,10 @@ const Dashboard = () => {
           </div>
           {/* Dashboard Actions */}
           <div className=" flex gap-2">
-            <button className=" px-6 bg-gray-200 rounded-md flex items-center gap-1 py-[-10px] text-xs font-medium  dark:text-gray-100 dark:hover:bg-gray-700 dark:bg-gray-700 ">
-              <CgOrganisation className="text-[20px] text-[#56575D]  dark:text-gray-100" size={17}/>All organi...
+            <button className=" px-6 bg-gray-200 rounded-md flex items-center text-xs font-medium  dark:text-gray-100 dark:hover:bg-gray-700 dark:bg-gray-700 ">
+              <CgOrganisation className="text-[20px] text-[#56575D]  dark:text-gray-100 me-2" size={17}/>All organi...
             </button>
-            <button className="px-6 bg-[#b6ebd9] text-green-700 rounded-md flex items-center gap-2 font-semibold text-sm pt-[-100px]">
+            <button className="px-6 bg-[#00657c3f] text-[#00667C] dark:bg-gray-300 rounded-md flex items-center gap-2 font-semibold text-sm ">
             <FaFilter /> Filter
             </button>
           </div>
@@ -128,7 +128,7 @@ const Dashboard = () => {
         {/* No Widgets Section */}
         <div className="mt-10 text-center">
           <p className="text-xl font-medium">No widgets</p>
-          <button className="mt-4 px-6 py-2 bg-green-600 text-white rounded-md flex items-center mx-auto gap-2">
+          <button className="mt-4 px-6 py-2 bg-[#00667C] dark:bg-gray-600 text-white rounded-md flex items-center mx-auto gap-2">
             🛠 Edit Dashboard
           </button>
         </div>

@@ -66,27 +66,27 @@ const Navbar = () => {
 
           {/* Dropdown Content */}
           {isOpen && (
-            <div id="dropdown-content" className="absolute left-0 mt-[174px] ms-[-10px] w-[500px] bg-white shadow-md rounded-lg p-4 border z-50">
+            <div id="dropdown-content" className="absolute left-0 mt-[174px] ms-[-10px] w-[500px] bg-white dark:bg-gray-900  dark:text-white shadow-md rounded-lg p-4 border z-50">
               <div className="flex items-center justify-between pb-3">
                 <div className="flex items-center space-x-4">
-                  <span className="bg-gray-200 p-2 rounded-md">
+                  <span className="bg-gray-200 dark:bg-gray-300 text-[#00667C] p-2 rounded-md">
                     <CgOrganisation />
                   </span>
-                  <span className="text-gray-900 font-medium text-sm">
+                  <span className="text-gray-900 font-medium text-sm   dark:text-gray-600">
                     My organization - 8847SK
                   </span>
                 </div>
                 <TooltipWrapper content="organization Settings">
                   
                   <button className="p-1 hover:bg-gray-100 rounded-full" onClick={handleSettingsClick}>
-                    <Settings size={20} className="text-[#5A9E87] cursor-pointer hover:text-green-700" />
+                    <Settings size={20} className="text-[#00667C] cursor-pointer hover:text-[#00667C]" />
                   </button>
                 
                 </TooltipWrapper>
               </div>
 
               <hr className="border-gray-300 my-3" />
-              <h3 className="font-semibold text-gray-900">Organizations is a PRO feature</h3>
+              <h3 className="font-semibold text-gray-900   dark:text-gray-600">Organizations is a PRO feature</h3>
               <p className="text-gray-600 text-sm mt-1 leading-relaxed">
                 Manage your clients, regional offices, and partners using a multi-level organization structure with editable roles and access permissions.
               </p>
@@ -115,7 +115,7 @@ const Navbar = () => {
 
         <TooltipWrapper 
             content={
-              <div className="w-[265px] py-1 px-1">
+              <div className="w-[265px] py-2 px-2 ">
                 <p className="text-[15px]">Limit resets every 30 days.</p>
                 <p className="text-[15px]">Send unlimited messages with PRO!</p>
                 <button className="mt-2 flex w-full items-center justify-center text-[16px] bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-medium px-2 py-2 rounded-full hover:scale-105 transition">
@@ -125,8 +125,8 @@ const Navbar = () => {
               </div>
             }
           >
-            <div className="relative flex items-center bg-[#EBF5E3] text-gray-700 px-2 py-[6px] mx-2 rounded-md text-sm cursor-pointer  dark:bg-gray-200 text-lightText dark:text-darkText">
-              Messages used: <span className="font-semibold mx-1">0 of 30k</span>
+            <div className="relative flex items-center bg-[#EBF5E3] text-gray-700 dark:bg-gray-500 px-3 py-[6px] mx-2 rounded-md text-sm cursor-pointer   text-lightText ">
+              Messages used: <span className="font-semibold mx-1">2 of 30k</span>
               <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden ml-2">
                 <div className="w-0 h-full bg-green-500"></div>
               </div>
@@ -170,7 +170,7 @@ const TooltipWrapper = ({ children, content }) => (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
       <Tooltip.Portal>
-        <Tooltip.Content className="bg-white text-black px-3 py-2 rounded-sm text-[14px] shadow-lg z-50" side="bottom" align="center" sideOffset={8}>
+        <Tooltip.Content className="bg-white text-black px-3 py-2 rounded-sm text-[14px] shadow-lg z-50" side="bottom" align="center" sideOffset={12}>
           {content}
           <Tooltip.Arrow className="fill-white" />
         </Tooltip.Content>
