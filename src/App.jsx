@@ -1,25 +1,61 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./assets/component/Navbar/Navbar";
 import Sidebar from "./assets/component/Siderbar/Sidebar";
 import Main from "./assets/component/Main/Main";
-import Setting from "./assets/component/Setting/Setting"; // Import Setting component
+import Setting from "./assets/component/Setting/Setting";
+import Login from "./assets/component/Login/Login";
+import Signup from "./assets/component/Login/Signup";
+import SetPassword from "./assets/component/Login/SetPassword";
+
+// Check Authentication
+const ProtectedRoute = ({ children }) => {
+  const isAuthenticated = localStorage.getItem("auth");
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("auth")
+  );
+
+  useEffect(() => {
+    const handleAuthChange = () => {
+      setIsAuthenticated(!!localStorage.getItem("auth"));
+    };
+
+    window.addEventListener("storage", handleAuthChange);
+    return () => window.removeEventListener("storage", handleAuthChange);
+  }, []);
+
   return (
     <Router>
-      <div className="flex bg-lightBg dark:bg-darkBg h-screen text-lightText dark:text-darkText">
-        <Sidebar />
-        <div className="flex-1 flex flex-col">
-          <div className="my-2 me-2">
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Main />} />
-              <Route path="/setting" element={<Setting/>} />
-            </Routes>
-          </div>
-        </div>
-      </div>
+      <Routes>
+        {/* Authentication Pages */}
+        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/set-password" element={<SetPassword setIsAuthenticated={setIsAuthenticated} />} />
+
+        {/* Protected Dashboard */}
+        <Route
+          path="/*"
+          element={
+            <ProtectedRoute>
+              <div className="flex bg-lightBg dark:bg-gray-800 h-screen text-lightText dark:text-darkText">
+                <Sidebar />
+                <div className="flex-1 flex flex-col">
+                  <Navbar />
+                  <Routes>
+                    <Route path="/" element={<Main />} />
+                    <Route path="/setting" element={<Setting />} />
+                  </Routes>
+                </div>
+              </div>
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
     </Router>
   );
 }

@@ -125,7 +125,7 @@ const Navbar = () => {
               </div>
             }
           >
-            <div className="relative flex items-center bg-[#EBF5E3] text-gray-700 px-2 py-[6px] mx-2 rounded-md text-sm cursor-pointer  dark:bg-gray-500 text-lightText dark:text-darkText">
+            <div className="relative flex items-center bg-[#EBF5E3] text-gray-700 px-2 py-[6px] mx-2 rounded-md text-sm cursor-pointer  dark:bg-gray-200 text-lightText dark:text-darkText">
               Messages used: <span className="font-semibold mx-1">0 of 30k</span>
               <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden ml-2">
                 <div className="w-0 h-full bg-green-500"></div>

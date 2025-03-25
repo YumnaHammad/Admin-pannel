@@ -120,7 +120,7 @@ function Setting() {
   const [selectedPlan, setSelectedPlan] = useState(200);
   const plans = [50, 200, 500];
   return (
-    <div className="flex gap-6 setting-menu w-full bg-white ">
+    <div className="flex gap-6 setting-menu w-full bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
       <aside className="w-1/4 border-r pr-1 pt-5 pl-2 ">
         <div className="uppercase text-gray-600 text-sm mb-5 ml-5">
           Organization Settings
@@ -154,14 +154,14 @@ function Setting() {
           ].map((tab) => (
             <li
               key={tab.name}
-              className={`flex justify-between items-center py-3 rounded-md pl-3 cursor-pointer ${
+              className={`flex justify-between items-center py-3 rounded-md pl-3 cursor-pointer dark:bg-gray-900 text-gray-700 dark:text-gray-300 ${
                 activeTab === tab.name
                   ? "bg-gray-200 text-green-700 font-semibold"
                   : "text-gray-600 hover:bg-gray-200 hover:text-black"
               }`}
               onClick={() => handleTabClick(tab.name)}
             >
-              <div className="flex items-center">
+              <div className="flex items-center dark:bg-gray-900 text-gray-700 dark:text-gray-300">
                 {tab.icon} {tab.name}
               </div>
               {tab.extra}
@@ -171,7 +171,7 @@ function Setting() {
       </aside>
       <main className="pr-6 w-full">
         {activeTab === "General" && (
-          <div className="bg-white">
+          <div className="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
             <nav className="flex justify-between items-center content-center pt-6 pl-6 pb-1">
               <h2 className="font-bold text-2xl">General</h2>
               <div className="flex justify-center gap-4">
@@ -344,7 +344,7 @@ function Setting() {
         )}
         {activeTab === "Users" && (
           <div>
-            <div className="p-6 bg-white  w-full">
+            <div className="p-6 bg-white  w-full h-[530px] dark:bg-gray-900 text-gray-700 dark:text-gray-300">
               {/* Header Section */}
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl  font-bold">Users</h2>
@@ -776,7 +776,7 @@ function Setting() {
           </div>
         )}
         {activeTab === "Billing" && (
-          <div className=" bg-white w-full  pl-6 pt-6">
+          <div className=" bg-white w-full  pl-6 pt-6 dark:bg-gray-900 text-gray-700 dark:text-gray-300">
             <h2 className="text-2xl font-bold">Current Plan</h2>
             <div className="flex justify-between">
               <div className="mt-4">
