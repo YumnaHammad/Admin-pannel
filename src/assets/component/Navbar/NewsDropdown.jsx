@@ -26,6 +26,7 @@ const newsData = [
     title: "🟢 New Device Connection Status Setting!",
     description: "You can now monitor device connectivity status with enhanced features.",
     image: LastestNews2,
+    buttonText: "Watch now",
   },
   {
     date: "Feb 22, 2025",
@@ -34,6 +35,7 @@ const newsData = [
     description: "New AI-based alerts provide real-time monitoring for your devices.",
     image: LastestNews3,
     buttonText: "Learn More",
+    buttonText: "Watch now",
   },
   {
     date: "Feb 20, 2025",
@@ -41,16 +43,20 @@ const newsData = [
     title: "Advanced Data Analytics Now Available!",
     description: "Get deeper insights with new analytics features in your dashboard.",
     image: LastestNews4,
+    buttonText: "Watch now",
   },
   {
     date: "Feb 18, 2025",
+    buttonText: "Watch now",
     icon:<FaFilm
     size={25}
     className="text-yellow-400 drop-shadow-lg bg-gradient-to-b from-yellow-300 to-yellow-600 p-1 rounded-md"
+    
   />,
     title: "Scheduled Maintenance Update",
     description: "Upcoming maintenance for better performance and reliability.",
     image: LastestNews5,
+    buttonText: "Watch now",
   },
 ];
 
@@ -121,7 +127,7 @@ const NewsDropdown = () => {
                 <img src={news.image} alt="News" className="w-full rounded-md mt-2" />
                 <p className="text-sm text-black font-semibold mt-2">{news.description}</p>
                 {news.buttonText && (
-                  <button className="mt-3 bg-[#3DBA8B] text-black px-3 py-1 rounded tracking-tight font-bold text-[16px]">
+                  <button className="mt-3 bg-[#00667C] text-black px-3 py-1 rounded tracking-tight font-bold text-[16px]">
                     {news.buttonText}
                   </button>
                 )}

@@ -221,7 +221,7 @@ useEffect(() => {
   return (
     <>
     {isOpen && (
-         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100]">
+         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100] ">
          <button
             onClick={onClose}
        className="absolute top-4 right-12 bg-[#E4F5EE] hover:text-black text-green-700 rounded-lg p-2 z-20"
@@ -272,7 +272,7 @@ useEffect(() => {
        </nav>
 
        {/* Scrollable Content */}
-       <div className="flex-1 ">
+       <div className="flex-1 mt-[190px]">
          <div className=" max-h-[400px]">
            <table className="w-full border-collapse border border-gray-300">
              <thead>

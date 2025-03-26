@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { LifeBuoy, Compass, Rocket, BookOpen, Users, Globe, MessageCircle } from "lucide-react";
 import BlynkStepForm from "./Help/BlynkStepForm"; // Importing the modal component
+import Upgrade from "../Setting/Upgrade";
 
+import { HiOutlineRocketLaunch } from "react-icons/hi2";
+import Quickstart from "./Help/Quickstart";
 const HelpDropdown = () => {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isTourOpen, setIsTourOpen] = useState(false);
+  const [isStartOpen, setIsStartOpen] = useState(false);
+  const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
 
   // Function to close the dropdown
   const closeDropdown = () => setIsHelpOpen(false);
@@ -39,7 +44,7 @@ const HelpDropdown = () => {
             <ul className="text-[15px] text-gray-700">
               {[
                 { icon: Compass, label: "Blynk Tour", action: () => { setIsTourOpen(true); closeDropdown(); } },
-                { icon: Rocket, label: "Quickstart" },
+                { icon: Rocket, label: "Quickstart", action: () => { setIsStartOpen(true); closeDropdown(); } },
                 { icon: BookOpen, label: "Documentation" },
                 { icon: Users, label: "Community" },
                 { icon: Globe, label: "Official Website" },
@@ -56,9 +61,21 @@ const HelpDropdown = () => {
                   />
                   {label}
                   {upgrade && (
-                    <span className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white text-xs px-2 py-1 rounded-full">
-                      Upgrade
-                    </span>
+                  
+                  <button
+                  className="relative text-white px- py-[2px] rounded-full flex text-[10px] items-center  transition-transform duration-200 ease-out group "
+                  onClick={() => setIsUpgradeOpen(true)}
+                >
+                  {/* Background Gradient */}
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#d3435c] to-[#f3b12f] transition-all duration-500 ease-in-out group-hover:from-[#f3b12f] group-hover:to-[#d3435c] rounded-full"></span>
+                
+                  {/* Icon & Text */}
+                  <span className="relative flex items-center  rounded-full px-2 py-1">
+              
+                    UPGRADE
+                  </span>
+                </button>
+                
                   )}
                 </li>
               ))}
@@ -69,6 +86,8 @@ const HelpDropdown = () => {
 
       {/* Blynk Tour Form - Opens only when "Blynk Tour" is clicked */}
       <BlynkStepForm isOpen={isTourOpen} onClose={() => setIsTourOpen(false)} />
+        <Quickstart  isOpen={isStartOpen} onClose={() => setIsStartOpen(false)} />
+      {isUpgradeOpen && <Upgrade onClose={() => setIsUpgradeOpen(false)} />} 
     </>
   );
 };

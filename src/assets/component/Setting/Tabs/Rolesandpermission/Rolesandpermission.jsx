@@ -5,6 +5,11 @@ import { CiSearch } from "react-icons/ci";
 import { FaToggleOn } from "react-icons/fa";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import Permission from './FilterSections/Permission';
+import RoleUsers from './RoleUsers';
+import Devices from './Devices';
+import Firmware from './FilterSections/Firmware';
+import Templates from './FilterSections/Templates';
+
 
 const Rolesandpermission = () => {
   
@@ -127,7 +132,7 @@ const Rolesandpermission = () => {
         <div className="text-sm font-normal mt-3">0 users</div>
       </div>
     </div>
-    <div className="relative w-full my-6">
+    <div className="relative w-full mt-6">
       <CiSearch
         className="absolute left-3 top-5  transform -translate-y-1/2 text-gray-400 "
         size={18}
@@ -140,67 +145,12 @@ const Rolesandpermission = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
           </div>
-          {filterContent().map(({ section, content }) => (
-        // <div
-        //   key={section}
-        //   className="mt-6 p-4  w-[100%]"
-        // >
-        //   <div
-        //     className="flex justify-between items-center cursor-pointer"
-        //     onClick={() => toggleSection(section)}
-        //   >
-        //     <h2 className="text-lg font-semibold flex items-center">
-        //     {expandedSections[section] ? (
-        //         <FaMinus size={16} className="mr-2" />
-        //       ) : (
-        //         <FaPlus size={16} className="mr-2" />
-        //       )}
-        //       {section}
-        //     </h2>
-        //   </div>
-        //   {expandedSections[section] && (
-        //     <div className="mt-4">
-        //         <table className="w-full border-collapse border border-gray-200">
-        //           <tbody>
-        //           {content.map((role) => (
-        //               <tr className="border-t h-20 hover:bg-gray-50">
-        //                 <td className="p-2 border border-gray-300 w-40 text-center">
-        //                 {role}
-        //                 </td>
-        //                 {roles[role]?.map((isOn, index) => (
-        //                   <td key={index} className="p-2 border border-gray-300 w-32 text-center">
-        //                     <label className="relative inline-flex items-center cursor-pointer">
-        //                       <input
-        //                         type="checkbox"
-        //                         className="sr-only peer"
-        //                         checked={isOn}
-        //                         onChange={() => toggleRole(role, index)}
-        //                         disabled={true} 
-        //                       />
-        //                       <div className={`w-8 h-4 rounded-full flex items-center px-1 transition-all duration-300 ease-in-out ${
-        //   isOn ? "bg-[#66AA45]" : "bg-gray-300"
-        // }`}  disabled={true} >
-        //                         <div
-        //                           className={`w-3 h-3 bg-white rounded-full shadow-md transform transition-all duration-300 ${
-        //                             isOn
-        //                               ? "translate-x-3"
-        //                               : "translate-x-0"
-        //                           }`}
-        //                         ></div>
-        //                       </div>
-        //                     </label>
-        //                   </td>
-        //                 ))}
-        //               </tr>
-        //                ))}
-        //           </tbody>
-        //         </table>
-        //     </div>
-        //   )}
-        // </div>
+         
         <><Permission/></>
-      ))}
-
+      <RoleUsers/>
+<Devices/>
+<Firmware/>
+<Templates/>
   </div>
   )
 }

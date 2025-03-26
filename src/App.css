@@ -4,9 +4,15 @@
 button {
     transition: all 0.3s ease-in-out;
   }
+  html.dark {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+  
+  
   
   .dark button:hover {
-    background-color: #3C3C3C;
+    background-color: #d3d3d35e;
   }
   
   

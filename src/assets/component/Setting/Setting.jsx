@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { CgOrganisation } from "react-icons/cg";
 import { UsersRound } from "lucide-react";
 import { LiaUserLockSolid, LiaTagSolid } from "react-icons/lia";
@@ -19,8 +20,8 @@ function Setting() {
   const [activeTab, setActiveTab] = useState("General");
 
   return (
-    <div className="flex gap-6 setting-menu w-full bg-white h-screen">
-      <aside className="w-2/4 border-r pr-1 pt-5 pl-2 ">
+    <div className="flex gap-6 h-screen setting-menu w-full bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
+      <aside className="w-80 border-r pr-1 pt-5 pl-2 ">
         <div className="uppercase text-gray-600 text-sm mb-5 ml-5">
           Organization Settings
         </div>
@@ -53,14 +54,14 @@ function Setting() {
           ].map((tab) => (
             <li
               key={tab.name}
-              className={`flex justify-between items-center py-3 rounded-md pl-3 cursor-pointer ${
+              className={`flex justify-between items-center py-3 rounded-md pl-3 cursor-pointer dark:bg-gray-900 text-gray-700 dark:text-gray-300 ${
                 activeTab === tab.name
-                  ? "bg-gray-200 text-green-700 font-semibold"
+                  ? "bg-gray-200 text-[#00667C] font-semibold"
                   : "text-gray-600 hover:bg-gray-200 hover:text-black"
               }`}
               onClick={() => handleTabClick(tab.name)}
             >
-              <div className="flex items-center">
+              <div className="flex items-center dark:bg-gray-900 text-gray-700 dark:text-gray-300">
                 {tab.icon} {tab.name}
               </div>
               {tab.extra}
