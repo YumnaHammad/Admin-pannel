@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import iconn from "../../img/iconn.png";
 
 const SetPassword = ({ setIsAuthenticated }) => {
   const [password, setPassword] = useState("");
@@ -13,9 +14,14 @@ const SetPassword = ({ setIsAuthenticated }) => {
       return;
     }
 
+    if (password.trim() === "") {
+      alert("Password cannot be empty.");
+      return;
+    }
+
     localStorage.setItem("user", JSON.stringify({ email, password }));
     localStorage.removeItem("tempEmail");
-    localStorage.setItem("auth", "true");
+    localStorage.setItem("auth", JSON.stringify(true)); // Store as boolean
     setIsAuthenticated(true);
     navigate("/");
   };
@@ -23,8 +29,12 @@ const SetPassword = ({ setIsAuthenticated }) => {
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
       <div className="bg-white py-10 px-8 rounded-lg shadow-md w-80">
-        <h2 className="text-2xl font-bold mb-7 text-left">Set Password</h2>
-        <p className="mb-2 text-left text-gray-600">Email: {email}</p>
+        <div className="flex justify-center mb-4">
+                        <img src={iconn} alt="Logo" className="w-30 h-14" />
+                      </div>
+        <h2 className="text-[22px] font-bold mb-7 text-left text-gray-800">Set Password</h2>
+
+        <p className="mb-2 text-left text-gray-600">Email: {email || "No email found"}</p>
         <input
           type="password"
           placeholder="Enter Password"
@@ -32,7 +42,12 @@ const SetPassword = ({ setIsAuthenticated }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleSetPassword} className="w-full bg-[#00667C] text-white p-2 rounded">Create Account</button>
+        <button
+          onClick={handleSetPassword}
+          className="w-full bg-[#00667C] text-white p-2 rounded"
+        >
+          Create Account
+        </button>
       </div>
     </div>
   );
