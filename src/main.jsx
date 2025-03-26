@@ -1,18 +1,17 @@
-import { StrictMode } from 'react'
-
 import React from "react";
-import ReactDOM from "react-dom/client";
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { DeveloperModeProvider } from "./assets/component/Siderbar/useDeveloperMode.jsx"; 
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { DeveloperModeProvider } from "./assets/component/Siderbar/useDeveloperMode";
+import { UserProfileProvider } from "./assets/component/Navbar/UserProfileContext";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <DeveloperModeProvider>
-      <App />
+    <UserProfileProvider>
+  <App />
+</UserProfileProvider>
+
     </DeveloperModeProvider>
   </React.StrictMode>
-)
-
-
+);

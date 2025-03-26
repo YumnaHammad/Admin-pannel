@@ -7,6 +7,8 @@ import * as Tooltip from "@radix-ui/react-tooltip";
 import DeveloperModeToggle from "./DeveloperModeToggle";
 import { useDeveloperMode } from "../Siderbar/useDeveloperMode";
 import ThemeToggle from "./ThemeToggle";
+import { useUserProfile } from "./UserProfileContext"; // Import context
+import UserProfileModal from "./UserProfileModal"; // Import Modal
 
 const countries = [
   { name: "USA", flag: "https://flagcdn.com/w40/us.png" },
@@ -23,15 +25,14 @@ const UserDropdown = () => {
   const { developerMode, setDeveloperMode } = useDeveloperMode();
   const navigate = useNavigate();
 
+  const { profileOpen, setProfileOpen } = useUserProfile(); // Get modal state
+
   const closeDropdown = () => setIsOpen(false);
-
-
 
   const handleLogout = () => {
     localStorage.removeItem("auth");
     navigate("/login", { replace: true });
   };
-  
 
   return (
     <>
@@ -72,7 +73,13 @@ const UserDropdown = () => {
               <Tooltip.Provider delayDuration={0}>
                 <Tooltip.Root>
                   <Tooltip.Trigger asChild>
-                    <BsGear className="ml-auto dark:text-gray-200 text-gray-600 cursor-pointer" />
+                    <BsGear
+                      className="ml-auto dark:text-gray-200 text-gray-600 cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent dropdown close
+                        setProfileOpen(true); // Open modal
+                      }}
+                    />
                   </Tooltip.Trigger>
                   <Tooltip.Portal>
                     <Tooltip.Content className="text-black bg-white p-2 rounded text-sm shadow-lg z-50" side="bottom" sideOffset={7}>
@@ -141,6 +148,9 @@ const UserDropdown = () => {
           </div>
         </>
       )}
+
+      {/* User Profile Modal */}
+      {profileOpen && <UserProfileModal />}
     </>
   );
 };
