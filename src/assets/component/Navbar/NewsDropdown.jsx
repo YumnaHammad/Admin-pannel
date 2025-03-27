@@ -56,7 +56,7 @@ const newsData = [
     title: "Scheduled Maintenance Update",
     description: "Upcoming maintenance for better performance and reliability.",
     image: LastestNews5,
-    buttonText: "Watch now",
+   
   },
 ];
 

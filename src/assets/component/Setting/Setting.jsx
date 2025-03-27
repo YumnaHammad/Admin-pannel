@@ -12,7 +12,7 @@ import "../Setting/Setting.css";
 import { ChevronDown } from "lucide-react";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import Upgrade from "./Upgrade";
-import { FaToggleOn } from "react-icons/fa";
+
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import "../Setting/Setting.css";
 import { CiSearch } from "react-icons/ci";
@@ -24,26 +24,33 @@ function Setting() {
   const [description, setDescription] = useState("");
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
-  const [countrySelected, setCountrySelected] = useState(false);
+  const [countrySelected] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
   const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
+  const [setExpanded] = useState(false);
+  const [userRoles] = useState([]);
+
+
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
-  const handlePhoneChange = (value, data) => {
-    setPhone(value);
+  // const handlePhoneChange = (value, data) => {
+  //   setPhone(value);
 
-    if (data?.dialCode) {
-      setCountrySelected(true);
-    }
+  //   if (data?.dialCode) {
+  //     setCountrySelected(true);
+  //   }
 
-    if (value.length > (data?.dialCode?.length || 0)) {
-      setError("");
-    }
-  };
-
+  //   if (value.length > (data?.dialCode?.length || 0)) {
+  //     setError("");
+  //   }
+  // };
+  const togglePermission = (permission) => {
+    console.log(`Toggling permission for: ${permission}`);
+   
+};
   const validatePhone = () => {
     if (countrySelected && phone.length <= phone.indexOf(" ") + 1) {
       setError("Phone number is required.");
@@ -59,7 +66,7 @@ function Setting() {
   const [selectedTimezone, setSelectedTimezone] =
     useState("Qatar (Asia/Qatar)");
   const [isOpen, setIsOpen] = useState(false);
-  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+
   const timezones = [
     "Novokuznetsk (Asia/Novokuznetsk)",
     "Novosibirsk (Asia/Novosibirsk)",
@@ -76,7 +83,7 @@ function Setting() {
     phone: "",
     selectedTimezone: "Qatar (Asia/Qatar)",
   };
-  const [permissions, setPermissions] = useState({
+  const [permissions] = useState({
     viewRoles: [true, false, false],
     editRoles: [true, false, false],
   });

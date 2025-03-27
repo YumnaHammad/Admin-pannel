@@ -358,7 +358,7 @@ export default function BlynkTour({ isOpen, onClose }) {
       </div>
 
       {/* Custom Scrollbar Styling */}
-      <style jsx>{`
+      <style>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 8px;
         }

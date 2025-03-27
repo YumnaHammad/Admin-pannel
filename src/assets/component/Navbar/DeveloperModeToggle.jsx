@@ -4,7 +4,7 @@ import { MdInfo } from "react-icons/md";
 
 const DeveloperModeToggle = ({ setDeveloperMode }) => {
   const [developerMode, setLocalDeveloperMode] = useState(() => {
-    return localStorage.getItem("developerMode") === "false" ? false : true;
+    return localStorage.getItem("developerMode") !== "false";
   });
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -38,7 +38,6 @@ const DeveloperModeToggle = ({ setDeveloperMode }) => {
         onMouseEnter={() => !developerMode && setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
       >
-        {/* Developer Mode Text */}
         <span className="cursor-pointer">Developer Mode</span>
 
         {/* Toggle Button */}
@@ -55,51 +54,59 @@ const DeveloperModeToggle = ({ setDeveloperMode }) => {
           ></div>
         </div>
 
-        {/* Tooltip - Only One, Positioned on the Left Outside the Dropdown */}
+        {/* Tooltip - Better positioning */}
         {showTooltip && !developerMode && (
-          <div className="absolute left-[-275px] top-1/2 transform -translate-y-1/2 w-[250px] text-[16px] bg-white text-black rounded px-4 py-2 shadow-md border border-gray-300">
-           Want to create your own IoT templates with Blynk?
-           Turn it on and follow guides on <span className="text-blue-500">blynk.io/en/developers</span>
+          <div className="absolute right-full mr-2 top-1/2 transform -translate-y-1/2 w-[250px] text-[16px] bg-white text-black rounded px-4 py-2 shadow-md border border-gray-300">
+            Want to create your own IoT templates with Blynk?
+            Turn it on and follow guides on{" "}
+            <span className="text-blue-500">blynk.io/en/developers</span>
           </div>
         )}
       </div>
 
-      {/* Congratulations Message */}
+      {/* Success Message */}
       {showCongrats && (
-        <div className="absolute right-10 mt-[-200px]  bg-white px-4 py-[30px]  shadow-xl border border-gray-300 transition-all duration-300 w-[450px] z-100"
-        style={{ opacity: showCongrats ? 1 : 0, transform: showCongrats ? 'translateY(0)' : 'translateY(-10px)', transition: 'opacity 0.3s ease, transform 0.3s ease' }}>
-     <div className="flex items-center gap-3">
-       <BsCheckCircle className="text-green-500 text-2xl mt-2" />
-       <span className="text-lg font-semibold text-gray-800">Success!</span>
-     </div>
-     <p className="text-gray-600 mt-2 text-sm leading-relaxed ms-9">
-       Now you can build your own IoT devices with ease.
-     </p>
-   </div>
+        <div
+          className="absolute right-10 mt-[-200px] bg-white px-4 py-4 shadow-xl border border-gray-300 transition-all duration-300 w-[450px] z-50"
+          style={{
+            opacity: showCongrats ? 1 : 0,
+            transform: showCongrats ? "translateY(0)" : "translateY(-10px)",
+            transition: "opacity 0.3s ease, transform 0.3s ease",
+          }}
+        >
+          <div className="flex items-center gap-3">
+            <BsCheckCircle className="text-green-500 text-2xl" />
+            <span className="text-lg font-semibold text-gray-800">Success!</span>
+          </div>
+          <p className="text-gray-600 mt-2 text-sm leading-relaxed ms-9">
+            Now you can build your own IoT devices with ease.
+          </p>
+        </div>
       )}
 
       {/* Confirmation Modal */}
       {showConfirmModal && (
-        <div className="absolute w-[350px] ms-[-180px] mt-[-80px] bg-black bg-opacity-40 z-50">
-          <div className="bg-white py-3 px-[12.5px] shadow-lg">
-            <div className="ms-[10px] mt-[5px]">
-              <p className="text-[14px] text-gray-600 mb-3 flex ]"><MdInfo size={18} className="text-orange-400 me-[10px] mt-[2px]"/>Disable Developer Mode?
-
-</p>
-          <p className="text-[14px] text-gray-600 mb-3 ms-[30px]">You will loose access to all developer features, but you will still have access to your devices</p>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white py-3 px-4 shadow-lg rounded-lg w-[350px]">
+            <div className="flex items-center gap-2">
+              <MdInfo size={18} className="text-orange-400" />
+              <p className="text-gray-700 text-sm font-medium">Disable Developer Mode?</p>
             </div>
-            <div className="flex justify-end gap-2">
+            <p className="text-gray-600 mt-2 text-sm ms-6">
+              You will lose access to all developer features, but you will still have access to your devices.
+            </p>
+            <div className="flex justify-end gap-3 mt-4">
               <button
                 onClick={() => setShowConfirmModal(false)}
-                className="bg-green-100 px-3 py-1 text-green-400 rounded font-semibold text-[14px]"
+                className="bg-gray-200 px-3 py-1 rounded font-semibold text-sm text-gray-700"
               >
                 Cancel
               </button>
               <button
                 onClick={confirmDisableDeveloperMode}
-                className="bg-green-400 text-black px-2 py-1 rounded font-semibold text-[14px]"
+                className="bg-red-500 text-white px-3 py-1 rounded font-semibold text-sm"
               >
-                Disable Developer Mode
+                Disable
               </button>
             </div>
           </div>

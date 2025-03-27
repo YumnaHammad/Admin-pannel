@@ -10,10 +10,10 @@ const Login = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    const storedUser = JSON.parse(localStorage.getItem("user")) || null;
+    const storedUser = JSON.parse(localStorage.getItem("user"));
 
     if (storedUser && storedUser.email === email && storedUser.password === password) {
-      localStorage.setItem("auth", JSON.stringify(true)); // Store as boolean
+      localStorage.setItem("auth", "true");
       setIsAuthenticated(true);
       setPopup({ show: true, type: "success", message: "You have successfully logged in." });
 
