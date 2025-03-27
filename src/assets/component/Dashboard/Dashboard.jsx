@@ -36,7 +36,7 @@ const Dashboard = () => {
           </h2>
           <div className="mt-4 dark:bg-gray-900  dark:text-white">
             <button className="w-full text-left px-4 py-4 bg-gray-100 rounded-md text-sm font-medium text-[#00667C]  dark:text-[#0b2d35]  dark:bg-gray-700 ">
-              New Dashboard
+              New 
             </button>
           </div>
         </div>
