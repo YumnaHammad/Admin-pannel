@@ -6,7 +6,7 @@ import Sidebar from "./assets/component/Siderbar/Sidebar";
 import Main from "./assets/component/Main/Main";
 import Setting from "./assets/component/Setting/Setting";
 import Login from "./assets/component/Login/Login";
-import Signup from "./assets/component/Login/Signup";
+import Signup from "./assets/component/Login/SignUp";
 import SetPassword from "./assets/component/Login/SetPassword";
 
 // Protected Route Wrapper
