@@ -11,6 +11,7 @@ import Rolesandpermission from "./Tabs/Rolesandpermission/Rolesandpermission"
 import Billing from "../Setting/Tabs/Billing";
 import Users from "./Tabs/Users";
 import General from "./Tabs/General";
+import Tags from "./Tabs/Tags";
 
 function Setting() {
 
@@ -74,12 +75,7 @@ function Setting() {
         {activeTab === "Users" && <Users setActiveTab={setActiveTab} />}
         {activeTab === "Roles and permissions" && (<><Rolesandpermission/></>)}
         {activeTab === "Billing" && (<><Billing/></>)}
-        {activeTab === "Tags" && (
-          <div>
-            <h2 className="font-bold text-2xl pt-6 pl-6">Tags</h2>
-            <div className="pl-6">Tag management content...</div>
-          </div>
-        )}
+        {activeTab === "Tags" && (<><Tags/></>)}
         {activeTab === "Webhooks" && (
           <div>
             <h2 className="font-bold text-2xl pt-6 pl-6">Webhooks</h2>

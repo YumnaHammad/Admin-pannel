@@ -44,7 +44,7 @@ const Dashboard = () => {
   }, [showDatePicker]);
 
   return (
-    <div className="flex w-full h-[520px]">
+    <div className="flex w-full h-[535px]">
       {/* Sidebar */}
       <aside
         className={`h-screen transition-all duration-300 bg-white border-e-[1px] ${

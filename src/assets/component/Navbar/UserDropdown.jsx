@@ -7,6 +7,9 @@ import * as Tooltip from "@radix-ui/react-tooltip";
 import DeveloperModeToggle from "./DeveloperModeToggle";
 import { useDeveloperMode } from "../Siderbar/useDeveloperMode";
 import ThemeToggle from "./ThemeToggle";
+import { useUserProfile } from "./UserProfileContext";
+import UserProfileModal from "./UserProfileModal";
+import EditProfileModal from "./EditProfileModal";
 
 const countries = [
   { name: "USA", flag: "https://flagcdn.com/w40/us.png" },
@@ -22,32 +25,39 @@ const UserDropdown = () => {
   const [selectedLocale, setSelectedLocale] = useState("USA");
   const { developerMode, setDeveloperMode } = useDeveloperMode();
   const navigate = useNavigate();
-
-  const closeDropdown = () => setIsOpen(false);
-
-
+  const { profileOpen, setProfileOpen } = useUserProfile();
+  const [editprofileOpen, editsetProfileOpen] = useState(false);
+  
 
   const handleLogout = () => {
     localStorage.removeItem("auth");
     navigate("/login", { replace: true });
   };
-  
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>
+      {/* User Button */}
+      <button onClick={() => setIsOpen((prev) => !prev)}>
         <User className="w-8 h-8 text-white bg-orange-400 rounded-full p-1 cursor-pointer mx-2" />
       </button>
 
+      {/* Dropdown */}
       {isOpen && (
         <>
+          {/* Background Overlay */}
           <div
             className="fixed inset-0 bg-black bg-opacity-30 z-40"
-            onClick={closeDropdown}
+            onClick={() => setIsOpen(false)}
           ></div>
 
-          <div className="fixed top-16 right-4 w-64 bg-white shadow-lg rounded-lg p-4 z-50 dark:bg-gray-700 text-lightText dark:text-darkText">
-            <div className="flex items-center border-b pb-2 mb-2">
+          {/* Dropdown Menu */}
+          <div
+            className="fixed top-16 right-4 w-64 bg-white shadow-lg rounded-lg p-4 z-50 dark:bg-gray-700 text-lightText dark:text-darkText"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* User Info */}
+            <div className="flex">
+            <div className="flex items-center border-b pb-2 mb-2" onClick={() => editsetProfileOpen(true)}>
               <Tooltip.Provider delayDuration={0}>
                 <Tooltip.Root>
                   <Tooltip.Trigger asChild>
@@ -56,7 +66,11 @@ const UserDropdown = () => {
                     </div>
                   </Tooltip.Trigger>
                   <Tooltip.Portal>
-                    <Tooltip.Content className="text-black bg-white p-2 rounded text-sm shadow-lg z-50" side="left" sideOffset={20}>
+                    <Tooltip.Content
+                      className="text-black bg-white p-2 rounded text-sm shadow-lg z-50"
+                      side="left"
+                      sideOffset={20}
+                    >
                       User Profile
                       <Tooltip.Arrow className="fill-white" />
                     </Tooltip.Content>
@@ -69,13 +83,29 @@ const UserDropdown = () => {
                 <p className="text-sm text-gray-500">lookforfare@yahoo.com</p>
               </div>
 
-              <Tooltip.Provider delayDuration={0}>
+              {/* Settings Button */}
+             
+            </div>
+              {/* Updated modal file name */}
+      <EditProfileModal isOpen={editprofileOpen} setIsOpen={editsetProfileOpen} />
+            <div>
+            <Tooltip.Provider delayDuration={0}>
                 <Tooltip.Root>
                   <Tooltip.Trigger asChild>
-                    <BsGear className="ml-auto dark:text-gray-200 text-gray-600 cursor-pointer" />
+                    <BsGear
+                      className="ml-auto dark:text-gray-200 text-gray-600 cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setProfileOpen(true);
+                      }}
+                    />
                   </Tooltip.Trigger>
                   <Tooltip.Portal>
-                    <Tooltip.Content className="text-black bg-white p-2 rounded text-sm shadow-lg z-50" side="bottom" sideOffset={7}>
+                    <Tooltip.Content
+                      className="text-black bg-white p-2 rounded text-sm shadow-lg z-50"
+                      side="bottom"
+                      sideOffset={7}
+                    >
                       Settings
                       <Tooltip.Arrow className="fill-white" />
                     </Tooltip.Content>
@@ -83,7 +113,9 @@ const UserDropdown = () => {
                 </Tooltip.Root>
               </Tooltip.Provider>
             </div>
+            </div>
 
+            {/* Locale Selection */}
             <div className="flex justify-between items-center py-2 relative">
               <Tooltip.Provider delayDuration={0}>
                 <Tooltip.Root>
@@ -110,37 +142,48 @@ const UserDropdown = () => {
               <span className="dark:text-gray-200 text-gray-600">{selectedLocale}</span>
             </div>
 
-            <DeveloperModeToggle developerMode={developerMode} setDeveloperMode={setDeveloperMode} />
+          
 
-            <Tooltip.Provider delayDuration={0}>
-              <Tooltip.Root>
-                <Tooltip.Trigger asChild>
-                  <div className="flex justify-between items-center py-2">
-                    <span>Billing</span>
-                    <button className="bg-orange-500 text-white text-xs px-3 py-1 rounded-full">UPGRADE</button>
-                  </div>
-                </Tooltip.Trigger>
-                <Tooltip.Portal>
-                  <Tooltip.Content className="text-black bg-white p-2 rounded text-sm shadow-lg z-50" side="left" sideOffset={20}>
-                    Open Billing
-                    <Tooltip.Arrow className="fill-white" />
-                  </Tooltip.Content>
-                </Tooltip.Portal>
-              </Tooltip.Root>
-            </Tooltip.Provider>
+            {/* Developer Mode Toggle */}
+            <DeveloperModeToggle
+              developerMode={developerMode}
+              setDeveloperMode={setDeveloperMode}
+            />
 
+            {/* Billing Section */}
+            <div className="flex justify-between items-center py-2">
+              <span>Billing</span>
+              <button className="bg-orange-500 text-white text-xs px-3 py-1 rounded-full">
+                UPGRADE
+              </button>
+            </div>
+
+            {/* Theme Toggle */}
             <div className="flex justify-between items-center py-2">
               <span>Theme</span>
               <ThemeToggle />
             </div>
 
-            <div className="border-t mt-2 pt-2 flex justify-between items-center py-2 cursor-pointer" onClick={handleLogout}>
+            {/* Logout */}
+            <div
+              className="border-t mt-2 pt-2 flex justify-between items-center py-2 cursor-pointer"
+              onClick={handleLogout}
+            >
               <span>Log out</span>
-              <VscSignOut size={21} className="mt-1 dark:text-gray-200 text-gray-600" />
+              <VscSignOut
+                size={21}
+                className="mt-1 dark:text-gray-200 text-gray-600"
+              />
             </div>
           </div>
         </>
       )}
+
+      {/* User Profile Modal */}
+      {profileOpen && <UserProfileModal isOpen={profileOpen} setIsOpen={setProfileOpen} />}
+
+
+
     </>
   );
 };

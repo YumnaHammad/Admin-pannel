@@ -10,8 +10,7 @@ import Signup from "./assets/component/Login/Signup";
 import SetPassword from "./assets/component/Login/SetPassword";
 
 // Protected Route Wrapper
-const ProtectedRoute = () => {
-  const isAuthenticated = localStorage.getItem("auth");
+const ProtectedRoute = ({ isAuthenticated }) => {
   return isAuthenticated ? (
     <div className="flex bg-lightBg dark:bg-gray-800 h-screen text-lightText dark:text-darkText">
       <Sidebar />
@@ -34,7 +33,10 @@ function App() {
     };
 
     window.addEventListener("storage", handleAuthChange);
-    return () => window.removeEventListener("storage", handleAuthChange);
+    
+    return () => {
+      window.removeEventListener("storage", handleAuthChange);
+    };
   }, []);
 
   return (
@@ -45,11 +47,11 @@ function App() {
 
         {/* Authentication Pages */}
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/set-password" element={<SetPassword setIsAuthenticated={setIsAuthenticated} />} />
 
         {/* Protected Routes */}
-        <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route path="/dashboard" element={<Main />} />
           <Route path="/setting" element={<Setting />} />
         </Route>

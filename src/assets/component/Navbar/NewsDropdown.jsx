@@ -34,7 +34,7 @@ const newsData = [
     title: "AI-Powered Alerts for Smart Monitoring!",
     description: "New AI-based alerts provide real-time monitoring for your devices.",
     image: LastestNews3,
-    buttonText: "Learn More",
+
     buttonText: "Watch now",
   },
   {
