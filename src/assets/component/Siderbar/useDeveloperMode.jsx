@@ -1,9 +1,9 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
 
-// Create context
+// Create Developer Mode Context
 const DeveloperModeContext = createContext(null);
 
-// Custom hook for easy access
+// Custom Hook for Accessing Developer Mode
 export const useDeveloperMode = () => {
   const context = useContext(DeveloperModeContext);
   if (!context) {
@@ -12,22 +12,26 @@ export const useDeveloperMode = () => {
   return context;
 };
 
-// Context provider component
+// Context Provider Component
 export const DeveloperModeProvider = ({ children }) => {
-  // Load developer mode from localStorage (if available)
+  // Load developer mode from localStorage safely
   const [developerMode, setDeveloperMode] = useState(() => {
-    const storedValue = localStorage.getItem("developerMode");
-    return storedValue ? JSON.parse(storedValue) : true; // Default to true
+    try {
+      const storedValue = localStorage.getItem("developerMode");
+      return storedValue !== null ? JSON.parse(storedValue) : true; // Default to true
+    } catch (error) {
+      console.error("Error parsing developerMode from localStorage:", error);
+      return true;
+    }
   });
 
-  // Update localStorage whenever developerMode changes
+  // Sync localStorage when developerMode changes
   useEffect(() => {
     localStorage.setItem("developerMode", JSON.stringify(developerMode));
   }, [developerMode]);
 
-  return (
-    <DeveloperModeContext.Provider value={{ developerMode, setDeveloperMode }}>
-      {children}
-    </DeveloperModeContext.Provider>
-  );
+  // Memoize the context value to avoid unnecessary re-renders
+  const value = useMemo(() => ({ developerMode, setDeveloperMode }), [developerMode]);
+
+  return <DeveloperModeContext.Provider value={value}>{children}</DeveloperModeContext.Provider>;
 };

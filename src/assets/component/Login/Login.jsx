@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsCheckCircle, BsExclamationCircle } from "react-icons/bs";
 import iconn from "../../img/iconn.png";
@@ -9,26 +9,37 @@ const Login = ({ setIsAuthenticated }) => {
   const [popup, setPopup] = useState({ show: false, type: "", message: "" });
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+  // ✅ Only run this effect once on mount to prevent unnecessary re-renders
+  useEffect(() => {
+    const auth = localStorage.getItem("auth") === "true";
+    if (auth) {
+      setIsAuthenticated(true);
+    }
+  }, []); // Removed `setIsAuthenticated` from dependencies
 
+  const handleLogin = (e) => {
+    e.preventDefault(); // Prevent default form submission
+  
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+  
     if (storedUser && storedUser.email === email && storedUser.password === password) {
       localStorage.setItem("auth", "true");
       setIsAuthenticated(true);
       setPopup({ show: true, type: "success", message: "You have successfully logged in." });
-
+  
+      // Navigate to dashboard immediately after popup appears
       setTimeout(() => {
-        setPopup({ show: false, type: "", message: "" });
-        navigate("/");
-      }, 1500);
+        navigate("/dashboard");
+      }, 1000); // Reduce timeout to make it feel instant
     } else {
       setPopup({ show: true, type: "error", message: "Invalid credentials! Please try again." });
-
+  
       setTimeout(() => {
         setPopup({ show: false, type: "", message: "" });
       }, 2000);
     }
   };
+  
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -69,26 +80,31 @@ const Login = ({ setIsAuthenticated }) => {
           <img src={iconn} alt="Logo" className="w-30 h-14" />
         </div>
         <h2 className="text-[22px] font-bold mb-7 text-left text-gray-800">Login</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full p-3 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00667C]"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full p-3 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00667C]"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button
-          onClick={handleLogin}
-          className="w-full bg-[#00667C] text-white p-3 rounded hover:bg-[#00505f] transition-all duration-300"
-        >
-          Login
-        </button>
+
+        {/* ✅ Wrapped inputs inside a single form to handle submission */}
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full p-3 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00667C]"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email" // ✅ Added autocomplete 
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full p-3 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00667C]"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
+            required
+          />
+          <button type="submit" className="w-full bg-[#00667C] text-white p-3 rounded mt-3 hover:bg-[#005060]">
+            Login
+          </button>
+        </form>
 
         <div className="flex justify-between mt-3 text-sm">
           <button onClick={() => navigate("/signup")} className="text-[#00667C] hover:underline">

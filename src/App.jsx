@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import Navbar from "./assets/component/Navbar/Navbar";
 import Sidebar from "./assets/component/Siderbar/Sidebar";
@@ -8,42 +8,28 @@ import Setting from "./assets/component/Setting/Setting";
 import Login from "./assets/component/Login/Login";
 import Signup from "./assets/component/Login/SignUp";
 import SetPassword from "./assets/component/Login/SetPassword";
+import ProtectedRoute from "./assets/component/Login/ProtectedRoute";
 
-// Protected Route Wrapper
-const ProtectedRoute = ({ isAuthenticated }) => {
-  return isAuthenticated ? (
-    <div className="flex bg-lightBg dark:bg-gray-800 h-screen text-lightText dark:text-darkText">
-      <Sidebar />
-      <div className="flex-1 flex flex-col mt-1">
-        <Navbar />
-        <Outlet />
-      </div>
-    </div>
-  ) : (
-    <Navigate to="/login" replace />
-  );
-};
+// Function to check authentication status
+const checkAuth = () => localStorage.getItem("auth") === "true";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("auth"));
+  const [isAuthenticated, setIsAuthenticated] = useState(() => checkAuth()); // ✅ Prevent re-renders
 
-  useEffect(() => {
-    const handleAuthChange = () => {
-      setIsAuthenticated(!!localStorage.getItem("auth"));
-    };
-
-    window.addEventListener("storage", handleAuthChange);
-    
-    return () => {
-      window.removeEventListener("storage", handleAuthChange);
-    };
+  // Memoized function to update auth state
+  const handleAuthChange = useCallback(() => {
+    setIsAuthenticated(checkAuth());
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("storage", handleAuthChange);
+    return () => window.removeEventListener("storage", handleAuthChange);
+  }, [handleAuthChange]); // ✅ Dependency fixed
+
   return (
-    <Router>
+    <Router basename="/Adminpanel">
       <Routes>
-        {/* Redirect to login if not authenticated */}
-        <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
 
         {/* Authentication Pages */}
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
@@ -52,15 +38,33 @@ function App() {
 
         {/* Protected Routes */}
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-          <Route path="/dashboard" element={<Main />} />
-          <Route path="/setting" element={<Setting />} />
+          <Route path="/dashboard" element={
+            <Layout>
+              <Main />
+            </Layout>
+          } />
+          <Route path="/setting" element={
+            <Layout>
+              <Setting />
+            </Layout>
+          } />
         </Route>
 
-        {/* Fallback Route */}
-        <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
 }
+
+// 🔹 Extracted Layout Component for Reusability
+const Layout = ({ children }) => (
+  <div className="flex bg-lightBg dark:bg-gray-800 h-screen text-lightText dark:text-darkText">
+    <Sidebar />
+    <div className="flex-1 flex flex-col mt-1">
+      <Navbar />
+      {children}
+    </div>
+  </div>
+);
 
 export default App;
