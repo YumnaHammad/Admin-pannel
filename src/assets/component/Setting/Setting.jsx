@@ -36,17 +36,6 @@ function Setting() {
     setActiveTab(tab);
   };
 
-  // const handlePhoneChange = (value, data) => {
-  //   setPhone(value);
-
-  //   if (data?.dialCode) {
-  //     setCountrySelected(true);
-  //   }
-
-  //   if (value.length > (data?.dialCode?.length || 0)) {
-  //     setError("");
-  //   }
-  // };
   const togglePermission = (permission) => {
     console.log(`Toggling permission for: ${permission}`);
    

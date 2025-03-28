@@ -1,13 +1,12 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 
 export default function UserProfileModal({ isOpen, setIsOpen }) {
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
-    name: "Yumna",
-    email: "yumnahammad4884@gmail.com",
+    name: "",
+    email: "",
     role: "Admin",
     phone: "",
     zip: "",
@@ -16,13 +15,27 @@ export default function UserProfileModal({ isOpen, setIsOpen }) {
 
   const logoutOptions = ["10 min", "30 min", "1 hour", "2 hours"];
 
+  // Fetch current user data when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      if (storedUser) {
+        setFormData((prevData) => ({
+          ...prevData,
+          name: storedUser.name || "",
+          email: storedUser.email || "",
+        }));
+      }
+    }
+  }, [isOpen]); // Runs when modal opens
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsOpen(false); // Close only the modal
+    setIsOpen(false);
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2000);
   };
@@ -115,7 +128,7 @@ export default function UserProfileModal({ isOpen, setIsOpen }) {
               <button
                 type="button"
                 className="px-4 py-2 bg-gray-300 rounded-lg"
-                onClick={() => setIsOpen(false)} // Close only the modal
+                onClick={() => setIsOpen(false)}
               >
                 Cancel
               </button>

@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
-import "./App.css";
 import Navbar from "./assets/component/Navbar/Navbar";
 import Sidebar from "./assets/component/Siderbar/Sidebar";
 import Main from "./assets/component/Main/Main";
@@ -14,9 +13,8 @@ import ProtectedRoute from "./assets/component/Login/ProtectedRoute";
 const checkAuth = () => localStorage.getItem("auth") === "true";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => checkAuth()); // ✅ Prevent re-renders
+  const [isAuthenticated, setIsAuthenticated] = useState(() => checkAuth());
 
-  // Memoized function to update auth state
   const handleAuthChange = useCallback(() => {
     setIsAuthenticated(checkAuth());
   }, []);
@@ -24,39 +22,33 @@ function App() {
   useEffect(() => {
     window.addEventListener("storage", handleAuthChange);
     return () => window.removeEventListener("storage", handleAuthChange);
-  }, [handleAuthChange]); // ✅ Dependency fixed
+  }, [handleAuthChange]);
 
   return (
-    <Router basename="/Adminpanel">
+    <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        {/* Redirect "/" to Login */}
+        <Route path="/" element={<Navigate to="/Adminpanel/login" replace />} />
 
         {/* Authentication Pages */}
-        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-        <Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />} />
-        <Route path="/set-password" element={<SetPassword setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/Adminpanel/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/Adminpanel/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/Adminpanel/set-password" element={<SetPassword setIsAuthenticated={setIsAuthenticated} />} />
 
-        {/* Protected Routes */}
+        {/* Protected Routes - Block Unauthorized Access */}
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-          <Route path="/dashboard" element={
-            <Layout>
-              <Main />
-            </Layout>
-          } />
-          <Route path="/setting" element={
-            <Layout>
-              <Setting />
-            </Layout>
-          } />
+          <Route path="/Adminpanel/dashboard" element={<Layout><Main /></Layout>} />
+          <Route path="/Adminpanel/setting" element={<Layout><Setting /></Layout>} />
         </Route>
 
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        {/* Redirect unknown routes to login */}
+        <Route path="*" element={<Navigate to="/Adminpanel/login" replace />} />
       </Routes>
     </Router>
   );
 }
 
-// 🔹 Extracted Layout Component for Reusability
+// Layout for Dashboard & Settings
 const Layout = ({ children }) => (
   <div className="flex bg-lightBg dark:bg-gray-800 h-screen text-lightText dark:text-darkText">
     <Sidebar />

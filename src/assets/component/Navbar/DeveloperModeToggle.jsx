@@ -84,29 +84,29 @@ const DeveloperModeToggle = ({ setDeveloperMode }) => {
         </div>
       )}
 
+   
       {/* Confirmation Modal */}
       {showConfirmModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white py-3 px-4 shadow-lg rounded-lg w-[350px]">
-            <div className="flex items-center gap-2">
-              <MdInfo size={18} className="text-orange-400" />
-              <p className="text-gray-700 text-sm font-medium">Disable Developer Mode?</p>
+        <div className="absolute w-[350px] ms-[-180px] mt-[-80px] bg-black bg-opacity-40 z-50">
+          <div className="bg-white py-3 px-[12.5px] shadow-lg">
+            <div className="ms-[10px] mt-[5px]">
+              <p className="text-[14px] text-gray-600 mb-3 flex ]"><MdInfo size={18} className="text-orange-400 me-[10px] mt-[2px]"/>Disable Developer Mode?
+
+</p>
+          <p className="text-[14px] text-gray-600 mb-3 ms-[30px]">You will loose access to all developer features, but you will still have access to your devices</p>
             </div>
-            <p className="text-gray-600 mt-2 text-sm ms-6">
-              You will lose access to all developer features, but you will still have access to your devices.
-            </p>
-            <div className="flex justify-end gap-3 mt-4">
+            <div className="flex justify-end gap-2">
               <button
                 onClick={() => setShowConfirmModal(false)}
-                className="bg-gray-200 px-3 py-1 rounded font-semibold text-sm text-gray-700"
+                className="bg-[#00657c52] px-3 py-1 text-black rounded font-semibold text-[14px]"
               >
                 Cancel
               </button>
               <button
                 onClick={confirmDisableDeveloperMode}
-                className="bg-red-500 text-white px-3 py-1 rounded font-semibold text-sm"
+                className="bg-[#00667C] text-white px-2 py-1 rounded font-semibold text-[14px]"
               >
-                Disable
+                Disable Developer Mode
               </button>
             </div>
           </div>

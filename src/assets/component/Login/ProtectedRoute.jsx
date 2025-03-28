@@ -1,9 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ isAuthenticated }) => {
-  if (isAuthenticated === null) return <></>; // Avoid unnecessary re-renders
-
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
-};
+function ProtectedRoute({ isAuthenticated }) {
+  if (!isAuthenticated) {
+    return <Navigate to="/Adminpanel/login" replace />;
+  }
+  return <Outlet />;
+}
 
 export default ProtectedRoute;

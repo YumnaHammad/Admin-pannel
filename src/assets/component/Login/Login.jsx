@@ -29,7 +29,7 @@ const Login = ({ setIsAuthenticated }) => {
   
       // Navigate to dashboard immediately after popup appears
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/Adminpanel/dashboard");
       }, 1000); // Reduce timeout to make it feel instant
     } else {
       setPopup({ show: true, type: "error", message: "Invalid credentials! Please try again." });
@@ -107,7 +107,7 @@ const Login = ({ setIsAuthenticated }) => {
         </form>
 
         <div className="flex justify-between mt-3 text-sm">
-          <button onClick={() => navigate("/signup")} className="text-[#00667C] hover:underline">
+          <button onClick={() => navigate("/Adminpanel/signup")} className="text-[#00667C] hover:underline">
             Create New Account
           </button>
         </div>

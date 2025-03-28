@@ -27,7 +27,7 @@ const Navbar = () => {
   const handleSettingsClick = () => {
     setIsSettingsOpen(true);
     setIsOpen(false);
-    navigate("/setting");
+    navigate("/Adminpanel/setting");
   };
 
   // Close dropdown when clicking outside
