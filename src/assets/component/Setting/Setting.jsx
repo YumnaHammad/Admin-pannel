@@ -3,10 +3,9 @@ import { useState } from "react";
 import { CgOrganisation } from "react-icons/cg";
 import { UsersRound } from "lucide-react";
 import { LiaUserLockSolid, LiaTagSolid } from "react-icons/lia";
-import { PiCreditCard, PiCloudArrowUpLight } from "react-icons/pi";
+import { PiCreditCard } from "react-icons/pi";
 import { RiWebhookFill } from "react-icons/ri";
 import { HiOutlineUser } from "react-icons/hi";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../Setting/Setting.css";
 import { ChevronDown } from "lucide-react";
@@ -84,37 +83,6 @@ function Setting() {
     }));
   };
 
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isYearly, setIsYearly] = useState(false);
-  const toggleBilling = () => setIsYearly(!isYearly);
-
-  const filterContent = () => {
-    const lowerCaseTerm = searchTerm.toLowerCase();
-
-    return [
-      {
-        section: "Permissions",
-        content: ["View roles and permissions", "Edit roles"],
-      },
-      { section: "Users", content: ["View users", "Invite new users", "Edit users", "Delete users", "Change user passwords", "Force Logout", "View user actions log", "Transfer users", "Download users list", "Suspend users"] },
-      { section: "Devices", content: ["Admin", "Staff", "User"] },
-      { section: "Billing", content: ["Billing content..."] },
-      { section: "Tags", content: ["Tag management content..."] },
-      { section: "Webhooks", content: ["Webhook settings content..."] },
-      {
-        section: "User actions log",
-        content: ["User activity log content..."],
-      },
-    ].filter(
-      ({ section, content }) =>
-        section.toLowerCase().includes(lowerCaseTerm) ||
-        content.some((item) => item.toLowerCase().includes(lowerCaseTerm))
-    );
-  };
-
-  const [selectedPlan, setSelectedPlan] = useState(200);
-  const plans = [50, 200, 500];
   return (
     <div className="flex gap-6 setting-menu w-full bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
       <aside className="w-1/4 border-r pr-1 pt-5 pl-2 ">
