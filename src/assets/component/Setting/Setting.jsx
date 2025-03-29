@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { CgOrganisation } from "react-icons/cg";
 import { UsersRound } from "lucide-react";
 import { LiaUserLockSolid, LiaTagSolid } from "react-icons/lia";
@@ -7,48 +6,16 @@ import { PiCreditCard } from "react-icons/pi";
 import { RiWebhookFill } from "react-icons/ri";
 import { HiOutlineUser } from "react-icons/hi";
 import "react-phone-input-2/lib/style.css";
-import "../Setting/Setting.css";
-import { ChevronDown } from "lucide-react";
-import { HiOutlineRocketLaunch } from "react-icons/hi2";
-import Upgrade from "./Upgrade";
-
-import { FaPlus, FaMinus } from "react-icons/fa6";
-import "../Setting/Setting.css";
-import { CiSearch } from "react-icons/ci";
-import { FaBalanceScale } from "react-icons/fa";
-import { PiDotsThreeOutline } from "react-icons/pi";
+import Rolesandpermission from "./Tabs/Rolesandpermission/Rolesandpermission"
+import Billing from "../Setting/Tabs/Billing";
+import Users from "./Tabs/Users";
+import General from "./Tabs/General";
+import Tags from "./Tabs/Tags";
 
 function Setting() {
-  const [orgName, setOrgName] = useState("My organization - 8847SK");
-  const [description, setDescription] = useState("");
-  const [phone, setPhone] = useState("");
-  const [error, setError] = useState("");
-  const [countrySelected] = useState(false);
-  const [isChanged, setIsChanged] = useState(false);
-  const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
-  const [setExpanded] = useState(false);
-  const [userRoles] = useState([]);
-
-
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-  };
-
-  const togglePermission = (permission) => {
-    console.log(`Toggling permission for: ${permission}`);
-   
-};
-  const validatePhone = () => {
-    if (countrySelected && phone.length <= phone.indexOf(" ") + 1) {
-      setError("Phone number is required.");
-    } else {
-      setError("");
-    }
-  };
-  const handleChange = (setter, value) => {
-    setter(value);
-    setIsChanged(true);
   };
   const [activeTab, setActiveTab] = useState("General");
   const [selectedTimezone, setSelectedTimezone] =
@@ -83,6 +50,37 @@ function Setting() {
     }));
   };
 
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isYearly, setIsYearly] = useState(false);
+  const toggleBilling = () => setIsYearly(!isYearly);
+
+  const filterContent = () => {
+    const lowerCaseTerm = searchTerm.toLowerCase();
+
+    return [
+      {
+        section: "Permissions",
+        content: ["View roles and permissions", "Edit roles"],
+      },
+      { section: "Users", content: ["View users", "Invite new users", "Edit users", "Delete users", "Change user passwords", "Force Logout", "View user actions log", "Transfer users", "Download users list", "Suspend users"] },
+      { section: "Devices", content: ["Admin", "Staff", "User"] },
+      { section: "Billing", content: ["Billing content..."] },
+      { section: "Tags", content: ["Tag management content..."] },
+      { section: "Webhooks", content: ["Webhook settings content..."] },
+      {
+        section: "User actions log",
+        content: ["User activity log content..."],
+      },
+    ].filter(
+      ({ section, content }) =>
+        section.toLowerCase().includes(lowerCaseTerm) ||
+        content.some((item) => item.toLowerCase().includes(lowerCaseTerm))
+    );
+  };
+
+  const [selectedPlan, setSelectedPlan] = useState(200);
+  const plans = [50, 200, 500];
   return (
     <div className="flex gap-6 setting-menu w-full bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
       <aside className="w-1/4 border-r pr-1 pt-5 pl-2 ">
@@ -118,14 +116,14 @@ function Setting() {
           ].map((tab) => (
             <li
               key={tab.name}
-              className={`flex justify-between items-center py-3 rounded-md pl-3 cursor-pointer dark:bg-gray-900 text-gray-700 dark:text-gray-300 ${
+              className={`flex justify-between items-center py-3 rounded-md pl-3 cursor-pointer ${
                 activeTab === tab.name
-                  ? "bg-gray-200 text-[#00667C] font-semibold"
+                  ? "bg-gray-200 text-green-700 font-semibold"
                   : "text-gray-600 hover:bg-gray-200 hover:text-black"
               }`}
               onClick={() => handleTabClick(tab.name)}
             >
-              <div className="flex items-center dark:bg-gray-900 text-gray-700 dark:text-gray-300">
+              <div className="flex items-center">
                 {tab.icon} {tab.name}
               </div>
               {tab.extra}
