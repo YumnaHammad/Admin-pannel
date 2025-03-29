@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { X } from "lucide-react";
 
 const EditProfileModal = ({ isOpen, setIsOpen }) => {
-  if (!isOpen) return null;
-
+  // ✅ Move useState hooks to the top (before any return statements)
   const [name, setName] = useState("Yumna Hammad");
   const [email, setEmail] = useState("yumnahammad4884@gmail.com");
-  const [role, setRole] = useState("Admin");
+  // const [role, setRole] = useState("Admin"); // ✅ No longer problematic
+  const [role] = useState("Admin");
+
+
+  if (!isOpen) return null; // ✅ No early return before hooks
 
   const handleSubmit = (e) => {
     e.preventDefault();

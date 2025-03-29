@@ -1,8 +1,10 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = () => {
-  const isAuthenticated = JSON.parse(localStorage.getItem("auth")) || false;
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
-};
+function ProtectedRoute({ isAuthenticated }) {
+  if (!isAuthenticated) {
+    return <Navigate to="/Adminpanel/login" replace />;
+  }
+  return <Outlet />;
+}
 
 export default ProtectedRoute;

@@ -1,4 +1,4 @@
-import React, { useState , useRef, useEffect} from "react";
+import React, { useState , useRef, useEffect, useRef, useEffect} from "react";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import { RxHamburgerMenu } from "react-icons/rx";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -44,7 +44,7 @@ const Dashboard = () => {
   }, [showDatePicker]);
 
   return (
-    <div className="flex w-full h-[535px]">
+    <div className="flex w-full h-screen">
       {/* Sidebar */}
       <aside
         className={`h-screen transition-all duration-300 bg-white border-e-[1px] ${

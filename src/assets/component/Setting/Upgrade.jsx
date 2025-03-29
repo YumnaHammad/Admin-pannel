@@ -5,14 +5,14 @@ import { IoClose } from "react-icons/io5";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import Info from "./Info";
 
+
 const Upgrade = ({ onClose }) => {
   const [showHeading, setShowHeading] = useState(true);
   const cardRef = useRef(null);
   const [isYearly, setIsYearly] = useState(false);
   const toggleBilling = () => setIsYearly(!isYearly);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
-  const [isSettingOpen, setSettingOpen] = useState(false);
+  const [isOpen] = useState(true);
 
 
 

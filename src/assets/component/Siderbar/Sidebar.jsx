@@ -25,16 +25,18 @@ export default function Sidebar() {
 
   const handleNavigation = (route) => {
     if (route) {
-      navigate(route);
-      window.location.reload(); // Ensures full page reload if needed
+      navigate(`/Adminpanel${route}`); // Ensure correct navigation with basename
     }
   };
+  
 
   const menuItems = [
     { 
       icon: <ChartNoAxesCombined size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, 
       label: "Dashboards",
-      route: "/" // Set route for Dashboard
+     
+          route: "/dashboard"  // Ensure this route exists in your App.js or Router setup
+     
     },
     developerMode && { 
       icon: <HiOutlineWrenchScrewdriver className="text-[20px] text-[#56575D] dark:bg-gray-900  dark:text-white" />, 

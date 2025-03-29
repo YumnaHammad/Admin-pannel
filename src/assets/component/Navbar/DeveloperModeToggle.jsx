@@ -4,7 +4,7 @@ import { MdInfo } from "react-icons/md";
 
 const DeveloperModeToggle = ({ setDeveloperMode }) => {
   const [developerMode, setLocalDeveloperMode] = useState(() => {
-    return localStorage.getItem("developerMode") === "false" ? false : true;
+    return localStorage.getItem("developerMode") !== "false";
   });
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -38,7 +38,6 @@ const DeveloperModeToggle = ({ setDeveloperMode }) => {
         onMouseEnter={() => !developerMode && setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
       >
-        {/* Developer Mode Text */}
         <span className="cursor-pointer">Developer Mode</span>
 
         {/* Toggle Button */}
@@ -55,29 +54,37 @@ const DeveloperModeToggle = ({ setDeveloperMode }) => {
           ></div>
         </div>
 
-        {/* Tooltip - Only One, Positioned on the Left Outside the Dropdown */}
+        {/* Tooltip - Better positioning */}
         {showTooltip && !developerMode && (
-          <div className="absolute left-[-275px] top-1/2 transform -translate-y-1/2 w-[250px] text-[16px] bg-white text-black rounded px-4 py-2 shadow-md border border-gray-300">
-           Want to create your own IoT templates with Blynk?
-           Turn it on and follow guides on <span className="text-blue-500">blynk.io/en/developers</span>
+          <div className="absolute right-full mr-2 top-1/2 transform -translate-y-1/2 w-[250px] text-[16px] bg-white text-black rounded px-4 py-2 shadow-md border border-gray-300">
+            Want to create your own IoT templates with Blynk?
+            Turn it on and follow guides on{" "}
+            <span className="text-blue-500">blynk.io/en/developers</span>
           </div>
         )}
       </div>
 
-      {/* Congratulations Message */}
+      {/* Success Message */}
       {showCongrats && (
-        <div className="absolute right-10 mt-[-200px]  bg-white px-4 py-[30px]  shadow-xl border border-gray-300 transition-all duration-300 w-[450px] z-100"
-        style={{ opacity: showCongrats ? 1 : 0, transform: showCongrats ? 'translateY(0)' : 'translateY(-10px)', transition: 'opacity 0.3s ease, transform 0.3s ease' }}>
-     <div className="flex items-center gap-3">
-       <BsCheckCircle className="text-green-500 text-2xl mt-2" />
-       <span className="text-lg font-semibold text-gray-800">Success!</span>
-     </div>
-     <p className="text-gray-600 mt-2 text-sm leading-relaxed ms-9">
-       Now you can build your own IoT devices with ease.
-     </p>
-   </div>
+        <div
+          className="absolute right-10 mt-[-200px] bg-white px-4 py-4 shadow-xl border border-gray-300 transition-all duration-300 w-[450px] z-50"
+          style={{
+            opacity: showCongrats ? 1 : 0,
+            transform: showCongrats ? "translateY(0)" : "translateY(-10px)",
+            transition: "opacity 0.3s ease, transform 0.3s ease",
+          }}
+        >
+          <div className="flex items-center gap-3">
+            <BsCheckCircle className="text-green-500 text-2xl" />
+            <span className="text-lg font-semibold text-gray-800">Success!</span>
+          </div>
+          <p className="text-gray-600 mt-2 text-sm leading-relaxed ms-9">
+            Now you can build your own IoT devices with ease.
+          </p>
+        </div>
       )}
 
+   
       {/* Confirmation Modal */}
       {showConfirmModal && (
         <div className="absolute w-[350px] ms-[-180px] mt-[-80px] bg-black bg-opacity-40 z-50">
@@ -91,13 +98,13 @@ const DeveloperModeToggle = ({ setDeveloperMode }) => {
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setShowConfirmModal(false)}
-                className="bg-green-100 px-3 py-1 text-green-400 rounded font-semibold text-[14px]"
+                className="bg-[#00657c52] px-3 py-1 text-black rounded font-semibold text-[14px]"
               >
                 Cancel
               </button>
               <button
                 onClick={confirmDisableDeveloperMode}
-                className="bg-green-400 text-black px-2 py-1 rounded font-semibold text-[14px]"
+                className="bg-[#00667C] text-white px-2 py-1 rounded font-semibold text-[14px]"
               >
                 Disable Developer Mode
               </button>

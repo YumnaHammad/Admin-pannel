@@ -1,12 +1,15 @@
-import { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useMemo } from "react";
 
 const UserProfileContext = createContext(null);
 
 export function UserProfileProvider({ children }) {
   const [profileOpen, setProfileOpen] = useState(false);
 
+  // ✅ Memoize value to prevent unnecessary renders
+  const value = useMemo(() => ({ profileOpen, setProfileOpen }), [profileOpen]);
+
   return (
-    <UserProfileContext.Provider value={{ profileOpen, setProfileOpen }}>
+    <UserProfileContext.Provider value={value}>
       {children}
     </UserProfileContext.Provider>
   );
