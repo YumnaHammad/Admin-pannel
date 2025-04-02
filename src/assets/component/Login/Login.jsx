@@ -9,41 +9,54 @@ const Login = ({ setIsAuthenticated }) => {
   const [popup, setPopup] = useState({ show: false, type: "", message: "" });
   const navigate = useNavigate();
 
-  // ✅ Only run this effect once on mount to prevent unnecessary re-renders
+  // ✅ Only redirect if a valid user exists in localStorage
   useEffect(() => {
     const auth = localStorage.getItem("auth") === "true";
-    if (auth) {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (auth && storedUser?.email && storedUser?.password) {
       setIsAuthenticated(true);
+      navigate("/Adminpanel/dashboard");
     }
-  }, []); // Removed `setIsAuthenticated` from dependencies
+  }, []);
 
   const handleLogin = (e) => {
-    e.preventDefault(); // Prevent default form submission
-  
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-  
-    if (storedUser && storedUser.email === email && storedUser.password === password) {
+    e.preventDefault();
+
+    let storedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (!storedUser) {
+      setPopup({ show: true, type: "error", message: "No user found. Please sign up first." });
+      setTimeout(() => setPopup({ show: false, type: "", message: "" }), 2000);
+      return;
+    }
+
+    if (storedUser.email === email && storedUser.password === password) {
+      const currentTime = new Date().toLocaleString();
+
+      if (!storedUser.registrationDate) {
+        storedUser.registrationDate = currentTime;
+      }
+
+      storedUser.lastLogin = currentTime;
+      storedUser.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      storedUser.locale = navigator.language || "en-US";
+
+      localStorage.setItem("user", JSON.stringify(storedUser));
       localStorage.setItem("auth", "true");
+
       setIsAuthenticated(true);
       setPopup({ show: true, type: "success", message: "You have successfully logged in." });
-  
-      // Navigate to dashboard immediately after popup appears
-      setTimeout(() => {
-        navigate("/Adminpanel/dashboard");
-      }, 1000); // Reduce timeout to make it feel instant
+
+      setTimeout(() => navigate("/Adminpanel/dashboard"), 1000);
     } else {
       setPopup({ show: true, type: "error", message: "Invalid credentials! Please try again." });
-  
-      setTimeout(() => {
-        setPopup({ show: false, type: "", message: "" });
-      }, 2000);
+      setTimeout(() => setPopup({ show: false, type: "", message: "" }), 2000);
     }
   };
-  
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
-      {/* Popup Notification */}
       {popup.show && (
         <div
           className={`absolute right-10 top-10 px-4 py-4 shadow-xl border rounded-lg transition-all duration-300 w-[350px] z-[100]
@@ -60,11 +73,7 @@ const Login = ({ setIsAuthenticated }) => {
             ) : (
               <BsExclamationCircle className="text-red-500 text-2xl" />
             )}
-            <span
-              className={`text-lg font-semibold ${
-                popup.type === "success" ? "text-gray-800" : "text-red-700"
-              }`}
-            >
+            <span className={`text-lg font-semibold ${popup.type === "success" ? "text-gray-800" : "text-red-700"}`}>
               {popup.type === "success" ? "Success!" : "Error!"}
             </span>
           </div>
@@ -74,14 +83,12 @@ const Login = ({ setIsAuthenticated }) => {
         </div>
       )}
 
-      {/* Login Form */}
       <div className="bg-white px-8 py-10 rounded-lg shadow-2xl w-80 transform transition-all duration-300">
         <div className="flex justify-center mb-4">
           <img src={iconn} alt="Logo" className="w-30 h-14" />
         </div>
         <h2 className="text-[22px] font-bold mb-7 text-left text-gray-800">Login</h2>
 
-        {/* ✅ Wrapped inputs inside a single form to handle submission */}
         <form onSubmit={handleLogin}>
           <input
             type="email"
@@ -89,7 +96,7 @@ const Login = ({ setIsAuthenticated }) => {
             className="w-full p-3 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00667C]"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email" // ✅ Added autocomplete 
+            autoComplete="email"
             required
           />
           <input

@@ -43,8 +43,8 @@ export default function UserProfileModal({ isOpen, setIsOpen }) {
   return (
     <>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-        <Dialog.Panel className="bg-white rounded-xl p-6 w-[90%] max-w-md shadow-lg">
-          <Dialog.Title className="text-xl font-semibold">User Profile</Dialog.Title>
+        <Dialog.Panel className="bg-white rounded-[5px] p-6 w-[90%] max-w-md shadow-lg">
+          <Dialog.Title className="text-2xl font-bold text-center text-[#00667C] dark:text-blue-400">User Profile</Dialog.Title>
 
           <form onSubmit={handleSubmit} className="mt-4 space-y-3">
             <div>
@@ -53,8 +53,8 @@ export default function UserProfileModal({ isOpen, setIsOpen }) {
                 type="text"
                 name="name"
                 value={formData.name}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-lg"
+                disabled
+className="w-full px-3 py-2 border rounded-lg bg-gray-200 cursor-not-allowed"
                 required
               />
             </div>
@@ -69,6 +69,7 @@ export default function UserProfileModal({ isOpen, setIsOpen }) {
                 className="w-full px-3 py-2 border rounded-lg bg-gray-200 cursor-not-allowed"
               />
             </div>
+   
 
             <div>
               <label className="block text-sm font-medium">Role</label>

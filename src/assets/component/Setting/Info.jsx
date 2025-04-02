@@ -3,7 +3,7 @@ import { useState } from "react";
 import { IoIosInformationCircle } from "react-icons/io";
 const Info = ({ onClose }) => {
 
-  const [isOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false); 
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 z-20">

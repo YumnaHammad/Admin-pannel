@@ -40,18 +40,19 @@ export default function Sidebar() {
     },
     developerMode && { 
       icon: <HiOutlineWrenchScrewdriver className="text-[20px] text-[#56575D] dark:bg-gray-900  dark:text-white" />, 
-      label: "Developer Zone" 
+      label: "Developer Zone" , route: "/developerzone" 
     },
     { separator: true },
-    { icon: <Box size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Devices" },
-    { icon: <Sun size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Automations" },
-    { icon: <UsersRound size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Users" },
-    { icon: <CgOrganisation className="text-[20px] text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Organizations" },
-    { icon: <MapPin size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Locations" },
+    { icon: <Box size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Devices" , route: "/device" },
+    { icon: <Sun size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Automations" ,route: "/automation" },
+    { icon: <UsersRound size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Users" , route: "/user"  },
+    { icon: <CgOrganisation className="text-[20px] text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Organizations" , route: "/Organization"   },
+    { icon: <MapPin size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Locations" , route: "/location" },
     { separator: true },
-    { icon: <Activity size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Demand Response" },
-    { icon: <Truck size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Fleet Management" },
-    { icon: <TbDeviceMobileMessage className="text-[20px] text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "In-App Messaging" },
+    { icon: <Activity size={20} className="text-[#56575D] dark:bg-gray-900 dark:text-white" />, label: "Demand Response" , route: "/demandresponse" },
+
+    { icon: <Truck size={20} className="text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "Fleet Management" ,route: "/fleet" },
+    { icon: <TbDeviceMobileMessage className="text-[20px] text-[#56575D] dark:bg-gray-900  dark:text-white" />, label: "In-App Messaging"  , route: "/inapp"},
   ].filter(Boolean);
 
   return (
@@ -67,7 +68,7 @@ export default function Sidebar() {
           {!isCollapsed && <span className="text-[20px] font-bold text-[#56575D] "><img  className=" w-[120px]" src={iconn}/></span>} 
         </div>
 
-        <nav className={`mt-2 transition-all duration-300 ease-in-out ${showCollapseButton ? "pb-[15px] space-y-[7px]" : "pb-[20px] space-y-[11px]"}`}>        
+        <nav className={`mt-2 transition-all duration-300 ease-in-out ${showCollapseButton ? "pb-[1px] space-y-[7px]" : "pb-[px] space-y-[11px]"}`}>        
           {menuItems.map((item, index) =>
             item.separator ? (
               <hr key={index} className="my-1 mx-4 border-gray-300" />
@@ -80,7 +81,7 @@ export default function Sidebar() {
                 <div className={`flex-shrink-0 ${isCollapsed && "py-[2px] hover:bg-gray-200  "}`}>{item.icon}</div>
                 {!isCollapsed && <span className="text-[#56575D]  hover:dark:text-gray-900  ">{item.label}</span>}
                 {isCollapsed && (
-                  <span className="absolute left-16 bg-white text-black px-2 rounded-md text-sm opacity-0 group-hover:opacity-100 dark:bg-gray-900  dark:text-white hover:text-gray-900">{item.label}</span>
+                  <span className="absolute left-16 bg-white text-black px- rounded-md text-sm opacity-0 group-hover:opacity-100 dark:bg-gray-900  dark:text-white hover:text-gray-900">{item.label}</span>
                 )}
               </div>
             )
@@ -98,7 +99,7 @@ export default function Sidebar() {
               </div>
               {!isCollapsed && <span className="text-[#56575D]">Collapse</span>}
               {isCollapsed && (
-                <span className="absolute left-16 bg-white text-black px-2 py-1 rounded-md text-sm opacity-0 group-hover:opacity-100">Expand</span>
+                <span className="absolute left-16 bg-white text-black px-3 py-1 rounded-md text-sm opacity-0 group-hover:opacity-100">Expand</span>
               )}
             </div>
           </div>

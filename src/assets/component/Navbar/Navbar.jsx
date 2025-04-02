@@ -45,7 +45,7 @@ const Navbar = () => {
   return (
     <>
       {isOpen && <div className="fixed inset-0 bg-black bg-opacity-30 z-40"></div>}
-      <nav className="flex items-center dark:bg-gray-900 text-gray-700 dark:text-gray-300 justify-between bg-white px-2 py-2 rounded-md shadow-sm relative z-50 mb-1">
+      <nav className="flex items-center dark:bg-gray-900 text-gray-700 dark:text-gray-300 justify-between bg-white px-2 py-2 rounded-[6px] shadow-sm relative z-50 mb-1">
         {/* Organization Dropdown */}
         <div className="relative flex items-center">
           <button

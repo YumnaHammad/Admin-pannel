@@ -64,7 +64,7 @@ const UserDropdown = () => {
   const handleSettingsClick = () => {
     setIsSettingsOpen(true);
     setIsOpen(false);
-    navigate("/Adminpanel/setting");
+    navigate("/Adminpanel/setting/billing");
   };
   return (
     <>
