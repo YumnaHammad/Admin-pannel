@@ -25,6 +25,7 @@ import User from "./assets/component/Main/User";
 import Location from "./assets/component/Main/Location";
 import Zonesidebar from "./assets/component/Dashboard/Developerzone.jsx/Zonesidebar";
 import Templates from "./assets/component/Dashboard/Developerzone.jsx/Templates";
+import InfoPage from "./assets/component/Dashboard/Developerzone.jsx/InfoPage";
 
 // Function to check authentication status
 const checkAuth = () => localStorage.getItem("auth") === "true";
@@ -69,6 +70,8 @@ function App() {
         <Route path="*" element={<Navigate to="/Adminpanel/setting/general" replace />} />
       
             <Route path="/Adminpanel/developerzone/:tab?" element={<Layout><DeveloperZone/></Layout>} />
+            <Route path="/Adminpanel/developerzone/my-templates/info" element={<Layout><InfoPage /></Layout>} />
+            <Route path="/Adminpanel/developerzone/my-templates/info/:tab" element={<Layout><InfoPage /></Layout>} />
 
        
          

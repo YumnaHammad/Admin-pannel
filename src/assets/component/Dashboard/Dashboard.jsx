@@ -41,7 +41,7 @@ const Dashboard = () => {
   }, [showDatePicker]);
 
   return (
-    <div className="flex w-full h-[530px] ">
+    <div className=" flex w-full h-[530px] ">
       {/* Sidebar */}
       <div className="w-64 pt-6 justify-between flex flex-col">
         <div>
