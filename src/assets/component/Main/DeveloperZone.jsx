@@ -10,6 +10,8 @@ import {
   Database,
   Send // Integrations
 } from "lucide-react";
+import Templates from "../Dashboard/Developerzone.jsx/Templates";
+import InfoPage from "../Dashboard/Developerzone.jsx/InfoPage";
 
 function DeveloperZone() {
   const { tab } = useParams();
@@ -60,7 +62,7 @@ function DeveloperZone() {
 
       {/* Main Content */}
       <main className="pr-6 w-full">
-        {tab === "my-templates" && <h2 className="text-2xl font-bold pt-6">My Templates</h2>}
+        {tab === "my-templates" && <h2 className="text-2xl font-bold pt-6"><Templates/></h2>}
         {tab === "blueprints" && <h2 className="text-2xl font-bold pt-6">Blueprints</h2>}
         {tab === "Blynk.Air (OTA)" && <h2 className="text-2xl font-bold pt-6">Blynk.Air (OTA)</h2>}
         {tab === "static-tokens" && <h2 className="text-2xl font-bold pt-6">Static Tokens</h2>}
