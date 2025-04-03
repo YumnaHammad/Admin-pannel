@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect , useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { CgOrganisation } from "react-icons/cg";
 import { UsersRound } from "lucide-react";
@@ -7,11 +7,12 @@ import { PiCreditCard } from "react-icons/pi";
 import { RiWebhookFill } from "react-icons/ri";
 import { HiOutlineUser } from "react-icons/hi";
 import "react-phone-input-2/lib/style.css";
+import Billing from "../Setting/Tabs/Billing/Billing";
+import Users from "./Tabs/Users/Users";
+import General from "./Tabs/General/General";
+import Tags from "./Tabs/Tags/Tags";
+import Webhooks from "./Tabs/Webhook/Webhooks";
 import Rolesandpermission from "./Tabs/Rolesandpermission/Rolesandpermission";
-import Billing from "../Setting/Tabs/Billing";
-import Users from "./Tabs/Users";
-import General from "./Tabs/General";
-import Tags from "./Tabs/Tags";
 
 function Setting() {
   const { tab } = useParams(); // Get tab from URL
@@ -19,15 +20,28 @@ function Setting() {
 
   // Default to "general" if tab is not defined
   useEffect(() => {
-    if (!tab) navigate("/Adminpanel/setting/general", { replace: true });
+    if (!tab) {
+      navigate("/Adminpanel/setting/general", { replace: true });
+      setActiveTab("General");  
+    } else {
+      const formattedTab = tab
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+      
+      setActiveTab(formattedTab);
+    }
   }, [tab, navigate]);
-
+  
+  
+  const [activeTab, setActiveTab] = useState("General");
   // Function to update URL on tab click
   const handleTabClick = (tabName) => {
     const formattedTab = tabName.toLowerCase().replace(/\s+/g, "-");
     navigate(`/Adminpanel/setting/${formattedTab}`);
+    setActiveTab(tabName); // Update with readable name
   };
-
+  
   return (
     <div className="flex gap-6 h-screen setting-menu w-full bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
       <aside className="w-80 border-r pr-1 pt-5 pl-2">
@@ -66,24 +80,21 @@ function Setting() {
       </aside>
 
       <main className="pr-6 w-full">
-        {tab === "general" && <General />}
-        {tab === "users" && <Users />}
-        {tab === "roles-and-permissions" && <Rolesandpermission />}
-        {tab === "billing" && <Billing />}
-        {tab === "tags" && <Tags />}
-        {tab === "webhooks" && (
-          <div>
-            <h2 className="font-bold text-2xl pt-6 pl-6">Webhooks</h2>
-            <div className="pl-6">Webhook settings content...</div>
-          </div>
-        )}
-        {tab === "user-actions-log" && (
-          <div>
-            <h2 className="font-bold text-2xl pt-6 pl-6">User Actions Log</h2>
-            <div className="pl-6">User activity log content...</div>
-          </div>
-        )}
-      </main>
+  {activeTab === "General" && <General />}
+  {activeTab === "Users" && <Users setActiveTab={setActiveTab} />}
+  {activeTab.toLowerCase() === "roles and permissions".toLowerCase() && <Rolesandpermission />}
+
+  {activeTab === "Billing" && <Billing />}
+  {activeTab === "Tags" && <Tags />}
+  {activeTab === "Webhooks" && <Webhooks />}
+  {activeTab === "User Actions Log" && (
+    <div>
+      <h2 className="font-bold text-2xl pt-6 pl-6">User Actions Log</h2>
+      <div className="pl-6">User activity log content...</div>
+    </div>
+  )}
+</main>
+
     </div>
   );
 }

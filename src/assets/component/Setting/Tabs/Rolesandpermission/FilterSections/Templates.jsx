@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { FaToggleOn } from "react-icons/fa";
 
-const Templates = () => {
+const Templates = ({ isExpanded, toggleSection  }) => {
     const TemplatesData = ["View templates", "Add new templates", "Edit templates", "Delete templates", "Enable offline automation", "Manage voice assistance", "Publish Blueprint", "Manage Blueprints"];
     const [roles, setRoles] = useState(
       TemplatesData.reduce((acc, item) => ({ ...acc, [item]: [true, false, false] }), {})
@@ -12,13 +12,6 @@ const Templates = () => {
       Permissions: false,
       Users: false,
     });
-  
-    const toggleSection = (section) => {
-      setExpandedSections((prev) => ({
-        ...prev,
-        [section]: !prev[section],
-      }));
-    };
   
     const toggleRole = (role, index) => {
       setRoles((prevRoles) => ({
@@ -48,10 +41,10 @@ const Templates = () => {
       <div key={section} className="p-4 w-[100%]">
         <div
           className="flex justify-between items-center cursor-pointer "
-          onClick={() => toggleSection(section)}
+          onClick={toggleSection}
         >
           <h2 className="text-black flex items-center text-xl font-semibold">
-            {expandedSections[section] ? (
+            {isExpanded ? (
               <FaMinus size={20} className="text-black mr-2 border-2 border-black font-normal" />
             ) : (
               <FaPlus size={20} className="text-black mr-2 border-2 border-black font-normal" />
@@ -59,7 +52,7 @@ const Templates = () => {
             {section}
           </h2>
         </div>
-        {expandedSections[section] && (
+        {isExpanded && (
           <div className="mt-4">
             <table className="w-full border-collapse border border-gray-200">
               <tbody>

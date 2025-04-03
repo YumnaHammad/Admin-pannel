@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaBalanceScale } from "react-icons/fa";
 import { PiDotsThreeOutline } from "react-icons/pi";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
-import Upgrade from "../Upgrade";
+import Upgrade from "../../Upgrade";
 const Billing = () => {
     const [selectedPlan, setSelectedPlan] = useState(200);
     const [isYearly, setIsYearly] = useState(false);

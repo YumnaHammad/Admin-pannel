@@ -4,7 +4,7 @@ import PhoneInput from "react-phone-input-2";
 import { ChevronDown } from "lucide-react";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import { PiCloudArrowUpLight } from "react-icons/pi";
-import Upgrade from "../Upgrade";
+import Upgrade from "../../Upgrade";
 const General = () => {
   const [isChanged, setIsChanged] = useState(false);
   const [orgName, setOrgName] = useState("My organization - 8847SK");
