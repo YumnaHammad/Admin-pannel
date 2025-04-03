@@ -13,6 +13,7 @@ import General from "./Tabs/General/General";
 import Tags from "./Tabs/Tags/Tags";
 import Webhooks from "./Tabs/Webhook/Webhooks";
 import Rolesandpermission from "./Tabs/Rolesandpermission/Rolesandpermission";
+import UserAction from "./Tabs/UsersAction/UserAction";
 
 function Setting() {
   const { tab } = useParams(); // Get tab from URL
@@ -87,12 +88,7 @@ function Setting() {
   {activeTab === "Billing" && <Billing />}
   {activeTab === "Tags" && <Tags />}
   {activeTab === "Webhooks" && <Webhooks />}
-  {activeTab === "User Actions Log" && (
-    <div>
-      <h2 className="font-bold text-2xl pt-6 pl-6">User Actions Log</h2>
-      <div className="pl-6">User activity log content...</div>
-    </div>
-  )}
+  {activeTab === "User Actions Log" && (<UserAction/>)}
 </main>
 
     </div>
