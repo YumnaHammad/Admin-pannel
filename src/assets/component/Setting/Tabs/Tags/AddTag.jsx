@@ -32,10 +32,10 @@ import {
 import { VscBlank } from "react-icons/vsc";
 
 const AddTag = ({
-    onClose = () => {},
-    onSave = () => {},
-    initialData,
-  }) => {
+  onClose = () => {},
+  onSave = () => {},
+  initialData,
+}) => {
       const [tagName, setTagName] = useState(initialData?.name || "");
       const [tagColor, setTagColor] = useState(
         initialData?.colour || "bg-blue-500"
@@ -94,21 +94,21 @@ const AddTag = ({
         }
       
         const newTag = {
-          id: Date.now(), // Unique ID
+          id: Date.now(),
           icon: selectedIcon,
           name: tagName,
           colour: tagColor,
-          owner: storedUser.name, // Store the user's NAME instead of email
+          owner: storedUser.name,
         };
       
         const existingTags = JSON.parse(localStorage.getItem("tags")) || [];
         const updatedTags = [...existingTags, newTag];
         localStorage.setItem("tags", JSON.stringify(updatedTags));
-        
-        onSave(newTag);
-        onClose();
+      
+        onSave(newTag);  // Notify parent about the new tag
+        onClose(); // Close the modal after saving
       };
-            
+      
       const updateTagInDatabase = async (tagData) => {
         return new Promise((resolve) => {
           setTimeout(() => {
@@ -134,7 +134,7 @@ const AddTag = ({
           <div className="flex justify-between">
           <div className="mb-4 flex items-center space-x-4">
             <button
-              className="border p-2 rounded flex items-center space-x-2"
+              className="border p-2 rounded flex items-center space-x-2 border-red-400"
               onClick={() => setIsIconModalOpen(true)}
             >
               {selectedIcon && ICONS[selectedIcon] ? (

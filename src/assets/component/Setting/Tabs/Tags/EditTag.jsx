@@ -86,8 +86,15 @@ export default function EditTag({
       setError("Tag name can't be empty");
       return;
     }
-    onSave({ icon: selectedIcon, name: tagName, colour: tagColor });
-    onClose();
+  
+    onSave({
+      id: initialData?.id,
+      icon: selectedIcon,
+      name: tagName,
+      colour: tagColor,
+    });
+  
+    onClose(); // ← this closes before parent updates localStorage
   };
   const updateTagInDatabase = async (tagData) => {
     return new Promise((resolve) => {
@@ -102,9 +109,10 @@ export default function EditTag({
     if (initialData) {
       setTagName(initialData.name || "");
       setTagColor(initialData.colour || "bg-blue-500");
+      setSelectedIcon(initialData.icon || "VscBlank"); // ✅ FIX: set selected icon too
     }
   }, [initialData]);
-
+  
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-[40%]">
@@ -115,7 +123,7 @@ export default function EditTag({
         <div className="flex justify-between">
         <div className="mb-4 flex items-center space-x-4">
           <button
-            className="border p-2 rounded flex items-center space-x-2"
+            className="border p-2 rounded flex items-center space-x-2 border-red-400"
             onClick={() => setIsIconModalOpen(true)}
           >
             {selectedIcon && ICONS[selectedIcon] ? (
