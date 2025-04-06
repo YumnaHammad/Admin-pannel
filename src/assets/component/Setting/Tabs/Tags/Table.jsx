@@ -92,13 +92,13 @@ export function Table({ rows, onUpdateTags, onRefresh }) {
       tag.id === updatedTag.id ? { ...tag, ...updatedTag } : tag
     );
     localStorage.setItem("tags", JSON.stringify(updatedTags));
-  
+
     setIsTagOpen(false);
     setSelectedRow(null);
     setRefreshKey((prev) => prev + 1); // ✅ will re-trigger useEffect
   };
   const handleAddTagModalClose = () => {
-    setShowAddModal(false);  // This will close the modal
+    setShowAddModal(false); // This will close the modal
   };
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -119,8 +119,23 @@ export function Table({ rows, onUpdateTags, onRefresh }) {
     const storedTags = JSON.parse(localStorage.getItem("tags")) || [];
     const updatedTags = storedTags.filter((tag) => tag.id !== id);
     localStorage.setItem("tags", JSON.stringify(updatedTags));
+
+    // Reset states after deletion to prevent previous dropdowns from reappearing
+    setShowDeleteConfirm(false);
+    setRowToDelete(null);
+    setHoveredRowId(null); // Reset hovered row ID
     onRefresh();
   };
+
+  const handleDeleteConfirm = (row) => {
+    setRowToDelete(row); // Set row to delete
+    setShowDeleteConfirm(true); // Show delete confirmation modal
+  };
+
+  const handleDropdownClose = () => {
+    setHoveredRowId(null); // Reset hover state when closing dropdown
+  };
+
   const handleRefresh = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedTags = JSON.parse(localStorage.getItem("tags")) || [];
@@ -133,39 +148,38 @@ export function Table({ rows, onUpdateTags, onRefresh }) {
   };
   const handleTagCreated = () => {
     setRefreshKey((prev) => prev + 1);
-    handleRefresh();  // Call the refresh function here
+    handleRefresh(); // Call the refresh function here
   };
-  
+
   return (
     <>
-    {tableRows.length === 0 ? (
-      <NoTag onTagCreated={() => setRefreshKey((prev) => prev + 1)} />
-    ) : (
-    <>
+      {tableRows.length === 0 ? (
+        <NoTag onTagCreated={() => setRefreshKey((prev) => prev + 1)} />
+      ) : (
+        <>
           <div className="flex justify-between">
-        <h2 className="text-2xl font-bold mb-4">Tags</h2>
-        <button
-          className="bg-green-300 text-black font-bold px-6 rounded-md hover:bg-green-400 transition h-9"
-          onClick={() => setShowAddModal(true)}
-        >
-          <span className="text-lg">+</span>
-          <span>Add Tag</span>
-        </button>
-      </div>
-      <Card className="h-full w-full" shadow={false}>
-        <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className="relative w-full md:w-72">
-            <input
-              type="text"
-              placeholder="Search tag"
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-4 py-2 text-gray-600 bg-white border border-gray-300 rounded-md focus:outline-none"
-            />
-            <MagnifyingGlassIcon className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
+            <h2 className="text-2xl font-bold mb-4">Tags</h2>
+            <button
+              className="bg-green-300 text-black font-bold px-6 rounded-md hover:bg-green-400 transition h-9"
+              onClick={() => setShowAddModal(true)}
+            >
+              <span className="text-lg">+</span>
+              <span>Add Tag</span>
+            </button>
           </div>
-        </CardHeader>
-        <CardBody className="px-0">
-        
+          <Card className="h-full w-full" shadow={false}>
+            <CardHeader floated={false} shadow={false} className="rounded-none">
+              <div className="relative w-full md:w-72">
+                <input
+                  type="text"
+                  placeholder="Search tag"
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full px-4 py-2 text-gray-600 bg-white border border-gray-300 rounded-md focus:outline-none"
+                />
+                <MagnifyingGlassIcon className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
+              </div>
+            </CardHeader>
+            <CardBody className="px-0">
               <table className="mt-4 w-full min-w-max table-auto text-left">
                 <thead className="bg-gray-100">
                   <tr>
@@ -200,7 +214,13 @@ export function Table({ rows, onUpdateTags, onRefresh }) {
                         }}
                       >
                         <td className="p-4">
-                          <IconComponent className="w-6 h-6 text-gray-700" />
+                          <IconComponent
+                            className={`w-6 h-6 ${
+                              row.colour
+                                ? `text-${row.colour.replace("bg-", "")}`
+                                : "text-gray-700"
+                            }`}
+                          />
                         </td>
                         <td className="p-4">{row.id}</td>
                         <td className="p-4">{row.name}</td>
@@ -235,14 +255,12 @@ export function Table({ rows, onUpdateTags, onRefresh }) {
                                   </li>
                                   <li
                                     className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
-                                    onClick={() => {
-                                      setRowToDelete(row);
-                                      setShowDeleteConfirm(true);
-                                    }}
+                                    onClick={() => handleDeleteConfirm(row)}
                                   >
                                     <Trash size={14} />
                                     Delete
                                   </li>
+
                                   {showDeleteConfirm && (
                                     <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
                                       <div className="bg-white rounded-lg shadow-lg p-6 w-[300px]">
@@ -257,18 +275,19 @@ export function Table({ rows, onUpdateTags, onRefresh }) {
                                         </div>
                                         <div className="flex justify-end gap-2">
                                           <button
-                                            onClick={() =>
-                                              setShowDeleteConfirm(false)
-                                            }
+                                            onClick={() => {
+                                              setShowDeleteConfirm(false); // Close delete confirmation
+                                              setRowToDelete(null); // Reset row to delete
+                                            }}
                                             className="px-4 py-2 text-green-700 bg-green-100 rounded hover:bg-green-200"
                                           >
                                             Cancel
                                           </button>
                                           <button
                                             onClick={() => {
-                                              handleDelete(rowToDelete.id);
-                                              setShowDeleteConfirm(false);
-                                              setRowToDelete(null);
+                                              handleDelete(rowToDelete.id); // Perform delete
+                                              setShowDeleteConfirm(false); // Close confirmation modal
+                                              setRowToDelete(null); // Reset row to delete
                                             }}
                                             className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
                                           >
@@ -288,25 +307,28 @@ export function Table({ rows, onUpdateTags, onRefresh }) {
                   })}
                 </tbody>
               </table>{" "}
-        </CardBody>
-      </Card>
-      {isTagOpen && (
-        <EditTag
-          onSave={handleSaveTag}
-          onClose={() => setIsTagOpen(false)}
-          initialData={selectedRow}
-        />
-      )}
-    </>   )}  {showAddModal && (
-        <AddTag className="z-[90]"
+            </CardBody>
+          </Card>
+          {isTagOpen && (
+            <EditTag
+              onSave={handleSaveTag}
+              onClose={() => setIsTagOpen(false)}
+              initialData={selectedRow}
+            />
+          )}
+        </>
+      )}{" "}
+      {showAddModal && (
+        <AddTag
+          className="z-[90]"
           onClose={() => setShowAddModal(false)}
           onSave={() => {
             handleTagCreated();
             setShowAddModal(false);
-            
           }}
-          onRefresh={handleRefresh} 
+          onRefresh={handleRefresh}
         />
-      )}</>
+      )}
+    </>
   );
 }
