@@ -14,16 +14,10 @@ const Users =  ({ setActiveTab })  => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser?.name) {
       setLoggedInUser(storedUser.name);
-    }
-
-    const storedTags = JSON.parse(localStorage.getItem("tags")) || [];
-    if (storedUser?.name) {
-      const userTags = storedTags.filter(
-        (tag) => tag.owner === storedUser.name
-      );
-      setTableRows(userTags);
+      setTableRows([storedUser]); // just show the current user in table
     }
   }, []);
+  
   
   return (
     <div className="p-6 bg-white w-full">
@@ -65,9 +59,9 @@ const Users =  ({ setActiveTab })  => {
                 </td>
                 <td className="p-3 flex items-center space-x-3">
                   <div className="w-10 h-10 flex items-center justify-center bg-green-100 text-green-700 font-bold rounded-full">
-                    {row.owner?.[0]?.toUpperCase() || "U"}
+                    {row.name?.[0]?.toUpperCase() || ""}
                   </div>
-                  <span>{row.owner === loggedInUser ? `${row.owner} (you)` : row.owner}</span>
+                  <span>{row.name === loggedInUser ? `${row.name} (you)` : row.name}</span>
                 </td>
                 <td className="p-3 text-blue-600 font-medium">Admin</td>
                 <td className="p-3 text-gray-600">{row.location || "No lc"}</td>
