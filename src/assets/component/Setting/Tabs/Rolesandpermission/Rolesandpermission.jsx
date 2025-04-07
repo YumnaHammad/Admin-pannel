@@ -7,6 +7,7 @@ import Devices from "./Devices";
 import Firmware from "./FilterSections/Firmware";
 import Templates from "./FilterSections/Templates";
 import Organization from "./FilterSections/Organization";
+import UpgradeButton from "@/assets/component/UpgradeButton";
 
 const Rolesandpermission = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -65,16 +66,7 @@ const Rolesandpermission = () => {
       {/* Header Section */}
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-2xl font-bold">Roles and permissions</h1>
-        <button
-          className="relative overflow-hidden text-white px-8 py-2 rounded-full flex items-center text-sm font-medium transition-transform duration-200 ease-out group"
-          onClick={() => alert("Upgrade Feature Coming Soon!")}
-        >
-          <span className="absolute inset-0 bg-gradient-to-r from-[#d3435c] to-[#f3b12f] transition-all duration-500 ease-in-out group-hover:from-[#f3b12f] group-hover:to-[#d3435c]"></span>
-          <span className="relative flex items-center">
-            <HiOutlineRocketLaunch size={16} className="mr-2 text-base font-normal" />
-            Upgrade to Edit Permissions
-          </span>
-        </button>
+        <UpgradeButton className="px-8 py-2 mt-4">Upgrade to Edit Permissions</UpgradeButton>
       </div>
 
       {/* Action Buttons */}

@@ -2,9 +2,8 @@ import React from "react";
 import { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import { ChevronDown } from "lucide-react";
-import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import { PiCloudArrowUpLight } from "react-icons/pi";
-import Upgrade from "../../Upgrade";
+import UpgradeButton from "@/assets/component/UpgradeButton";
 const General = () => {
   const [isChanged, setIsChanged] = useState(false);
   const [orgName, setOrgName] = useState("My organization - 8847SK");
@@ -12,7 +11,6 @@ const General = () => {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
   const [countrySelected, setCountrySelected] = useState(false);
-  const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
   const validatePhone = () => {
     if (countrySelected && phone.length <= phone.indexOf(" ") + 1) {
       setError("Phone number is required.");
@@ -196,19 +194,7 @@ const General = () => {
                 <p className="text-black font-normal mt-2 text-base">
                   Upgrade to upload organization logo
                 </p>
-                <button
-                  className="mt-4 relative overflow-hidden text-white px-8 py-2 rounded-full flex items-center text-sm font-medium transition-transform duration-200 ease-out group"
-                  onClick={() => setIsUpgradeOpen(true)}
-                >
-                  <span className="absolute inset-0 bg-gradient-to-r from-[#d3435c] to-[#f3b12f] transition-all duration-500 ease-in-out group-hover:from-[#f3b12f] group-hover:to-[#d3435c]"></span>
-                  <span className="relative flex items-center">
-                    <HiOutlineRocketLaunch
-                      size={20}
-                      className="font-medium mr-2"
-                    />
-                    UPGRADE
-                  </span>
-                </button>
+               <UpgradeButton className="px-8 py-2 mt-4">Upgrade</UpgradeButton>
               </div>
               <p className="text-gray-500 text-base mt-2 text-left">
                 Please clear the cache after the upload to see the change right
@@ -218,7 +204,6 @@ const General = () => {
           </div>
         </div>
       </div>
-      {isUpgradeOpen && <Upgrade onClose={() => setIsUpgradeOpen(false)} />}
     </div>
   );
 };
