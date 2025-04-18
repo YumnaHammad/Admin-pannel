@@ -2,56 +2,101 @@ import React, { useState } from "react";
 import { Search, Plus, X, FileCode } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const templatesData = [
-  { name: "Yumna", devices: "1 Device", hardware: "ESP32", connection: "WiFi", description: "Main template" },
-  { name: "YumnaCopy", devices: "No devices", hardware: "ESP8266", connection: "WiFi", description: "Backup template" },
-];
-
 export default function Templates() {
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate();
 
-  const filteredTemplates = templatesData.filter((template) =>
+  const [hardware, setHardware] = useState("ESP32");
+
+  // Load from localStorage or default empty
+  const [templates, setTemplates] = useState(() => {
+    const saved = localStorage.getItem("templates");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const filteredTemplates = templates.filter((template) =>
     template.name.toLowerCase().includes(search.toLowerCase())
   );
-
-  // Navigate to /info with selected template details
-
+  const exists = templates.some(t => t.name === name);
+  if (exists) {
+    setError("Template with this name already exists");
+    return;
+  }
+  
   const handleSubmit = () => {
     if (!name.trim()) {
       setError("Field is required");
       return;
     }
+
+    const newTemplate = {
+      name,
+      description,
+      hardware,
+      connection: "WiFi",
+      devices: "No devices",
+    };
+
+    if (templates.length < 10) {
+      const updatedTemplates = [...templates, newTemplate];
+      setTemplates(updatedTemplates);
+      localStorage.setItem("templates", JSON.stringify(updatedTemplates));
+
+      localStorage.setItem("templateName", name); // For InfoPage header
+      navigate("/Adminpanel/developerzone/my-templates/info/home", {
+        state: {
+          fields: [
+            { label: "Name", value: name },
+            { label: "Hardware", value: hardware },
+            { label: "Connection Type", value: "WiFi" },
+            { label: "Description", value: description },
+          ],
+        },
+      });
+    }
+
     setError("");
     setShowModal(false);
-  
-    // Navigate to the new route with template details
-    navigate("/Adminpanel/developerzone/my-templates/info", {
+  };
+
+  const handleTemplateClick = (template) => {
+    localStorage.setItem("templateName", template.name);
+    navigate("/Adminpanel/developerzone/my-templates/info/home", {
       state: {
-        name,
-        description,
-        hardware: "ESP32",  // Assuming hardcoded value, or you can get it dynamically
-        connection: "WiFi",  // Same for connection type
+        fields: [
+          { label: "Name", value: template.name },
+          { label: "Hardware", value: template.hardware },
+          { label: "Connection Type", value: template.connection },
+          { label: "Description", value: template.description },
+        ],
       },
     });
   };
-  
 
   return (
     <div className="p-4">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-xl font-bold">Templates</h1>
-        <button
-          className="flex items-center gap-1 bg-[#00667C] text-white text-xs px-3 py-1.5 rounded-md shadow hover:bg-[#00657c71]"
-          onClick={() => setShowModal(true)}
-        >
-          <Plus size={14} /> New Template
-        </button>
+        {templates.length < 10 ? (
+          <button
+            className="flex items-center gap-1 bg-[#00667C] text-white text-xs px-3 py-1.5 rounded-md shadow hover:bg-[#00657c71]"
+            onClick={() => setShowModal(true)}
+          >
+            <Plus size={14} /> New Template
+          </button>
+        ) : (
+          <button
+            className="flex items-center gap-1 bg-yellow-500 text-white text-xs px-3 py-1.5 rounded-md shadow hover:bg-yellow-600"
+            onClick={() => alert("Please upgrade to add more templates!")}
+          >
+            🚀 Upgrade
+          </button>
+        )}
       </div>
 
       {/* Search Bar */}
@@ -116,14 +161,23 @@ export default function Templates() {
             <div className="flex gap-2 mt-3">
               <div className="w-1/2">
                 <label className="block text-sm font-medium">Hardware</label>
-                <select className="w-full p-2 border rounded-md">
+                <select
+                  className="w-full p-2 border rounded-md"
+                  value={hardware}
+                  onChange={(e) => setHardware(e.target.value)}
+                >
                   <option>ESP32</option>
                   <option>ESP8266</option>
                 </select>
               </div>
               <div className="w-1/2">
                 <label className="block text-sm font-medium">Connection Type</label>
-                <input type="text" value="WiFi" readOnly className="w-full p-2 border rounded-md bg-gray-100" />
+                <input
+                  type="text"
+                  value="WiFi"
+                  readOnly
+                  className="w-full p-2 border rounded-md bg-gray-100"
+                />
               </div>
             </div>
 

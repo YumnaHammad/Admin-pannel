@@ -9,6 +9,7 @@ export default function Create_Webhook({ onClose }) {
   const [webhookName, setWebhookName] = useState("");
   const [failureReceivers, setFailureReceivers] = useState(["Yumna"]);
   const [failureThreshold, setFailureThreshold] = useState(10);
+  
   const handleChange = (e) => {
     setSelectedEvent(e.target.value);
     setIsError(false); // Reset error state when user selects a valid option
@@ -123,12 +124,12 @@ export default function Create_Webhook({ onClose }) {
         </div>
       </div> )}  
         <div className={`flex justify-between sticky bg-gray-100 p-6 footer bottom-0 ${selectedEvent?`mt-0`:`mt-60`}`}>
-          <button className="px-4 py-2 bg-green-100 text-green-700 font-semibold rounded-lg flex items-center gap-2 hover:bg-green-200">
+          <button className="px-4 py-2 bg-green-100 text-[#00667C] font-semibold rounded-lg flex items-center gap-2 hover:bg-[#00657c0e]">
           <FaScrewdriverWrench /> Test webhook
           </button>
           <div className="flex gap-2">
             <button className="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300" onClick={onClose}>Cancel</button>
-            <button className="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow hover:bg-green-600">Create Webhook</button>
+            <button className="px-4 py-2 lex items-center gap-1  bg-[#00667C] text-white  rounded-md shadow hover:bg-[#00657c71]">Create Webhook</button>
           </div>
         </div>
       </div>

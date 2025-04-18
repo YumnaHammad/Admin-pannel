@@ -3,22 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { BsCheckCircle, BsExclamationCircle } from "react-icons/bs";
 import iconn from "../../img/iconn.png";
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [popup, setPopup] = useState({ show: false, type: "", message: "" });
   const navigate = useNavigate();
 
-  // ✅ Only redirect if a valid user exists in localStorage
   useEffect(() => {
     const auth = localStorage.getItem("auth") === "true";
     const storedUser = JSON.parse(localStorage.getItem("user"));
-
+  
+    // ✅ Redirect ONLY if user exists & has valid credentials
     if (auth && storedUser?.email && storedUser?.password) {
-      setIsAuthenticated(true);
       navigate("/Adminpanel/dashboard");
+    } else {
+      localStorage.removeItem("auth"); // ❌ Remove invalid auth session
     }
-  }, []);
+  }, [navigate]);
+  
+  
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -45,7 +48,9 @@ const Login = ({ setIsAuthenticated }) => {
       localStorage.setItem("user", JSON.stringify(storedUser));
       localStorage.setItem("auth", "true");
 
-      setIsAuthenticated(true);
+      // ✅ Trigger `storage` event so ProtectedRoute updates
+      window.dispatchEvent(new Event("storage"));
+
       setPopup({ show: true, type: "success", message: "You have successfully logged in." });
 
       setTimeout(() => navigate("/Adminpanel/dashboard"), 1000);

@@ -45,7 +45,7 @@ const Navbar = () => {
   return (
     <>
       {isOpen && <div className="fixed inset-0 bg-black bg-opacity-30 z-40"></div>}
-      <nav className="flex items-center dark:bg-gray-900 text-gray-700 dark:text-gray-300 justify-between bg-white px-2 py-2 rounded-[6px] shadow-sm relative z-50 mb-1">
+      <nav className="flex items-center dark:bg-gray-900 text-gray-700 dark:text-gray-300 justify-between bg-white px-2 py-2 rounded-[6px] shadow-sm relative  mb-1">
         {/* Organization Dropdown */}
         <div className="relative flex items-center">
           <button
@@ -66,7 +66,7 @@ const Navbar = () => {
 
           {/* Dropdown Content */}
           {isOpen && (
-            <div id="dropdown-content" className="absolute left-0 mt-[174px] ms-[-10px] w-[500px] bg-white dark:bg-gray-900  dark:text-white shadow-md rounded-lg p-4 border z-50">
+            <div id="dropdown-content" className="absolute left-0 mt-[173px] ms-[-7px] w-[500px] bg-white dark:bg-gray-900  dark:text-white shadow-md rounded-[5px] p-4 border z-50">
               <div className="flex items-center justify-between pb-3">
                 <div className="flex items-center space-x-4">
                   <span className="bg-gray-200 dark:bg-gray-300 text-[#00667C] p-2 rounded-md">

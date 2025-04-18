@@ -12,12 +12,14 @@ export default function Webhooks() {
             first one. Full documentation can be found <a href="#" className="text-blue-500">here</a>.
           </p>
           <div className="flex justify-center">
-          <button className="mt-4 px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow hover:bg-green-600 flex items-center gap-2 " onClick={() =>setIsopen(true)}>
+          <button className="flex items-center gap-1 mt-3 bg-[#00667C] text-white text-xs px-3 py-2 rounded-md shadow hover:bg-[#00657c71]" onClick={() =>setIsopen(true)}>
             <span className="text-xl">+</span> Create Webhook
           </button>
           </div>
         </div>
-        {isopen && <Create_Webhook onClick={() => setIsopen(false)}/>}
+        {isopen && <Create_Webhook onClose={() => setIsopen(false)} />}
+
+
       </div>
     );
   }

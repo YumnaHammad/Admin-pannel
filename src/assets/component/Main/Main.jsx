@@ -17,7 +17,7 @@ function Main() {
 
   return (
     <div className="bg-white rounded-[5px]">
-      <div className="flex items-center justify-between bg-white px-4 shadow-sm border-b rounded-[6px] dark:bg-gray-900 text-gray-700 dark:text-gray-300">
+      <div className="flex items-center justify-between bg-white  shadow-sm border-b rounded-[6px] dark:bg-gray-900 text-gray-700 dark:text-gray-300">
         {/* Conditionally Render Components Based on URL */}
         {location.pathname.includes("/dashboard") && <Dashboard />}
         {location.pathname.includes("/demandresponse") && <DemandResponse />}

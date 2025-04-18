@@ -64,7 +64,8 @@ function App() {
         />
 
         {/* Protected Routes - Block Unauthorized Access */}
-        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+        <Route element={<ProtectedRoute />}>
+
         <Route path="/Adminpanel/setting/:tab?" element={<Layout><Setting /> </Layout>} />
         {/* Redirect to General if no tab is specified */}
         <Route path="*" element={<Navigate to="/Adminpanel/setting/general" replace />} />

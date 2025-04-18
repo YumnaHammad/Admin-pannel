@@ -10,8 +10,18 @@ import {
   Database,
   Send // Integrations
 } from "lucide-react";
+import { RiWebhookFill } from "react-icons/ri";
 import Templates from "../Dashboard/Developerzone.jsx/Templates";
 import InfoPage from "../Dashboard/Developerzone.jsx/InfoPage";
+import BlynkAir from "./BlynkAir";
+import StaticTokens from "./StaticTokens";
+import RuleEngine from "./RuleEngine";
+import Oauth from "./Oauth";
+import Webhooks from "../Setting/Tabs/Webhook/Webhooks";
+
+import Blueprints from "../Dashboard/Developerzone.jsx/Blueprints";
+import Integrations from "../Dashboard/Developerzone.jsx/Integrations";
+
 
 function DeveloperZone() {
   const { tab } = useParams();
@@ -42,7 +52,7 @@ function DeveloperZone() {
             { name: "Static Tokens", icon: <KeyRound size={17} className="mr-3 text-[#00667C]" /> },
             { name: "Rule Engine", icon: <Settings2 size={17} className="mr-3 text-[#00667C]" /> },
             { name: "OAuth 2.0", icon: <PlugZap size={17} className="mr-3 text-[#00667C]" /> },
-            { name: "Webhooks", icon: <Network size={17} className="mr-3 text-[#00667C]" /> },
+            { name: "Webhooks", icon: <RiWebhookFill size={17} className="mr-3 text-[#00667C]" /> },
             { name: "Integrations", icon: <Database size={17} className="mr-3 text-[#00667C]" /> },
           ].map((tabItem) => (
             <li
@@ -63,13 +73,14 @@ function DeveloperZone() {
       {/* Main Content */}
       <main className="pr-6 w-full">
         {tab === "my-templates" && <h2 className="text-2xl font-bold pt-6"><Templates/></h2>}
-        {tab === "blueprints" && <h2 className="text-2xl font-bold pt-6">Blueprints</h2>}
-        {tab === "Blynk.Air (OTA)" && <h2 className="text-2xl font-bold pt-6">Blynk.Air (OTA)</h2>}
-        {tab === "static-tokens" && <h2 className="text-2xl font-bold pt-6">Static Tokens</h2>}
-        {tab === "rule-engine" && <h2 className="text-2xl font-bold pt-6">Rule Engine</h2>}
-        {tab === "oauth-2-0" && <h2 className="text-2xl font-bold pt-6">OAuth 2.0</h2>}
-        {tab === "webhooks" && <h2 className="text-2xl font-bold pt-6">Webhooks</h2>}
-        {tab === "integrations" && <h2 className="text-2xl font-bold pt-6">Integrations</h2>}
+        {tab === "blueprints" && <h2 className="text-2xl font-bold pt-6"><Blueprints/></h2>}
+       
+        {tab === "blynk.air-(ota)" && <><BlynkAir/></>}
+        {tab === "static-tokens" && <><StaticTokens/></>}
+        {tab === "rule-engine" && <><RuleEngine/></>}
+        {tab === "oauth-2.0" && <><Oauth/></>}
+        {tab === "webhooks" && <><Webhooks/></>}
+        {tab === "integrations" && <><Integrations/></>}
       </main>
     </div>
   );

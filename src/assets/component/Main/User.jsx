@@ -1,14 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
-function User() {
+const User =  ({ setActiveTab })  => {
+  const [loggedInUser, setLoggedInUser] = useState("");
+  const [hoveredRowId, setHoveredRowId] = useState(null);
+  const [tableRows, setTableRows] = useState([]);
+
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser?.name) {
+      setLoggedInUser(storedUser.name);
+      setTableRows([storedUser]); // just show the current user in table
+    }
+  }, []);
+  
+  
   return (
-    <div>
-          
-          <div className="p-6 bg-white  w-full h-[530px] rounded-[5px]">
+    <div className="p-6 bg-white w-full">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl  font-bold">Users</h2>
-        <button className="bg-[#24C48E] text-black px-4 py-2 rounded-md hover:bg-[#6DD8B4] font-bold text-sm"   onClick={() => setActiveTab("Billing")}>
+        <h2 className="text-2xl font-bold">Users</h2>
+        <button className="bg-[#24C48E] text-black px-4 py-2 rounded-md hover:bg-[#6DD8B4] font-bold text-sm"  onClick={() => navigate("/Adminpanel/setting/billing")}>
           + Invite a new user
         </button>
       </div>
@@ -18,11 +34,11 @@ function User() {
         placeholder="Search Users"
         className="w-80 border border-gray-300 rounded-sm px-2 py-2 mb-4 text-sm font-normal"
       />
-<div>
-    <p className='mb-3 text-base font-normal'>1 User</p>
-</div>
+      <div>
+        <p className='mb-3 text-base font-normal'>1 User</p>
+      </div>
       {/* User Table */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto relative">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-100 border-b">
@@ -36,27 +52,58 @@ function User() {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b">
-              <td className="p-3">
-                <input type="checkbox" className="w-4 h-4" />
-              </td>
-              <td className="p-3 flex items-center space-x-3">
-                <div className="w-10 h-10 flex items-center justify-center bg-green-100 text-green-700 font-bold rounded-full">
-                  HI
-                </div>
-                <span>Hi (you)</span>
-              </td>
-              <td className="p-3 text-blue-600 font-medium">Admin</td>
-              <td className="p-3 text-gray-600">No lc</td>
-              <td className="p-3">—</td>
-            </tr>
+            {tableRows.map((row, index) => (
+              <tr key={index} className="border-b">
+                <td className="p-3">
+                  <input type="checkbox" className="w-4 h-4" />
+                </td>
+                <td className="p-3 flex items-center space-x-3">
+                  <div className="w-10 h-10 flex items-center justify-center bg-green-100 text-green-700 font-bold rounded-full">
+                    {row.name?.[0]?.toUpperCase() || ""}
+                  </div>
+                  <span>{row.name === loggedInUser ? `${row.name} (you)` : row.name}</span>
+                </td>
+                <td className="p-3 text-blue-600 font-medium">Admin</td>
+                <td className="p-3 text-gray-600">{row.location || "No lc"}</td>
+                <td className="p-3 relative">
+                  <div
+                    className="group dropdown-actions"
+                    onMouseEnter={() => setHoveredRowId(row.id)}
+                    onMouseLeave={() => setHoveredRowId(null)}
+                  >
+                    <button className="bg-green-100 p-2 rounded-md">
+                      <HiOutlineDotsHorizontal size={18} />
+                    </button>
+                    {hoveredRowId === row.id && (
+                      <div className="absolute right-0 top-10 w-32 bg-white rounded-md shadow-lg z-10">
+                        <ul className="text-sm text-gray-700 py-1">
+                          <li
+                            className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => {
+                              setSelectedRow(row);
+                              setIsTagOpen(true);
+                            }}
+                          >
+                            Edit
+                          </li>
+                          <li
+                            className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
+                            onClick={() => handleDeleteConfirm(row)}
+                          >
+                            Delete
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
     </div>
-    </div>
-    
   )
 }
 
-export default User
+export default User;
